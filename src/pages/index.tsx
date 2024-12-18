@@ -2,13 +2,12 @@ import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
-import HomepageFeatures from '@site/src/components/HomepageFeatures';
 import Heading from '@theme/Heading';
 
 import styles from './index.module.css';
 
 function HomepageHeader() {
-  const {siteConfig} = useDocusaurusContext();
+  const { siteConfig } = useDocusaurusContext();
   return (
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
       <div className="container">
@@ -19,8 +18,8 @@ function HomepageHeader() {
         <div className={styles.buttons}>
           <Link
             className="button button--secondary button--lg"
-            to="/docs/intro">
-            Docusaurus Tutorial - 5min ⏱️
+            to="/docs">
+            Get Started - 5min ⏱️
           </Link>
         </div>
       </div>
@@ -28,15 +27,58 @@ function HomepageHeader() {
   );
 }
 
+function LatestBlogPost() {
+  return (
+    <div className={styles.latestBlogSection}>
+      <div className="container">
+        <div className="row">
+          <div className="col col--8 col--offset-2">
+            <Heading as="h2" className={styles.sectionTitle}>
+              Latest from our Blog
+            </Heading>
+            <div className={styles.blogPost}>
+              <Heading as="h3">
+                <Link to="/blog/build-ai-workflows-with-data-flow-platform">
+                  Building AI-Powered Workflows with Data Flow Platform
+                </Link>
+              </Heading>
+              <p>
+                Learn how to create automated workflows that combine AI models,
+                application integrations, and ETL processes using the Data Flow Platform.
+                This tutorial demonstrates how to build and deploy intelligent workflows
+                as standalone AI agents accessible via API or web interface.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Home(): JSX.Element {
-  const {siteConfig} = useDocusaurusContext();
+  const { siteConfig } = useDocusaurusContext();
   return (
     <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />">
+      title="Data Flow Platform"
+      description={siteConfig.tagline}>
       <HomepageHeader />
       <main>
-        <HomepageFeatures />
+        <div className={styles.platformSection}>
+          <div className="container">
+            <div className="row">
+              <div className="col col--8 col--offset-2">
+                <p className={styles.platformDescription}>
+                  Our platform empowers developers to build and orchestrate AI-powered applications
+                  with ease. Through intuitive visual workflows and robust integration capabilities,
+                  you can connect multiple AI services, manage data flows, and create sophisticated
+                  AI solutions without getting bogged down by complex infrastructure.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <LatestBlogPost />
       </main>
     </Layout>
   );

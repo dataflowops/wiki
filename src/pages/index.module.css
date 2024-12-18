@@ -21,3 +21,40 @@
   align-items: center;
   justify-content: center;
 }
+
+.platformSection {
+  padding: 4rem 0;
+  text-align: center;
+}
+
+.platformDescription {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: var(--ifm-color-emphasis-700);
+}
+
+.latestBlogSection {
+  padding: 4rem 0;
+  background-color: var(--ifm-color-emphasis-100);
+}
+
+.sectionTitle {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.blogPost {
+  padding: 2rem;
+  background-color: var(--ifm-background-color);
+  border-radius: var(--ifm-border-radius);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.blogPost h3 {
+  margin-bottom: 1rem;
+}
+
+.blogPost p {
+  margin-bottom: 0;
+  color: var(--ifm-color-emphasis-700);
+}

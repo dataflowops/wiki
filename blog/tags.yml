@@ -1,19 +1,122 @@
-facebook:
-  label: Facebook
-  permalink: /facebook
-  description: Facebook tag description
+# Core Data Flow & Integration
+data-flow:
+  label: Data Flow
+  permalink: /data-flow
+  description: Articles about the movement and transformation of data within a system or between systems.
 
-hello:
-  label: Hello
-  permalink: /hello
-  description: Hello tag description
+data-integration:
+  label: Data Integration
+  permalink: /data-integration
+  description: Content focusing on connecting different data sources
 
-docusaurus:
-  label: Docusaurus
-  permalink: /docusaurus
-  description: Docusaurus tag description
+integrations:
+  label: Integrations
+  permalink: /integrations
+  description: Articles about building, managing, and optimizing integrations
 
-hola:
-  label: Hola
-  permalink: /hola
-  description: Hola tag description
+integration:
+  label: Integration
+  permalink: /integration
+  description: Articles about connecting the platform with other tools
+
+# Workflows & Automation
+workflows:
+  label: Workflows
+  permalink: /workflows
+  description: Articles about building, managing, and optimizing workflows
+
+workflow-automation:
+  label: Workflow Automation
+  permalink: /workflow-automation
+  description: Automating business processes and tasks through streamlined workflows
+
+automation:
+  label: Automation
+  permalink: /automation
+  description: Content about automating data processes
+
+# Data Pipeline & ETL
+data-pipelines:
+  label: Data Pipelines
+  permalink: /data-pipelines
+  description: Articles about building, managing, and optimizing data pipelines
+
+etl-processes:
+  label: ETL Processes
+  permalink: /etl-processes
+  description: Posts related to Extract, Transform, Load processes
+
+# Real-time & Streaming
+real-time-data:
+  label: Real-time Data
+  permalink: /real-time-data
+  description: Insights and best practices for real-time data processing
+
+streaming-analytics:
+  label: Streaming Analytics
+  permalink: /streaming-analytics
+  description: Articles on analyzing data streams in motion
+
+# Data Architecture & Management
+data-architecture:
+  label: Data Architecture
+  permalink: /data-architecture
+  description: Guidance on designing and implementing robust data architectures
+
+data-management:
+  label: Data Management
+  permalink: /data-management
+  description: Articles about organizing and controlling data assets
+
+scalability:
+  label: Scalability
+  permalink: /scalability
+  description: Posts about building systems that can handle increasing data volumes
+
+big-data:
+  label: Big Data
+  permalink: /big-data
+  description: Content related to managing and processing large datasets
+
+# AI & Applications
+ai-integration:
+  label: AI Integration
+  permalink: /ai-integration
+  description: Connecting artificial intelligence with your applications and workflows
+
+ai-agents:
+  label: AI Agents
+  permalink: /ai-agents
+  description: Creating and deploying autonomous AI agents for various tasks
+
+no-code-ai:
+  label: No-Code AI
+  permalink: /no-code-ai
+  description: Building AI-powered solutions without writing code
+
+app-integration:
+  label: App Integration
+  permalink: /app-integration
+  description: Seamlessly connecting different applications to share data and automate tasks
+
+# APIs & Technical Integration
+api-integration:
+  label: API
+  permalink: /api
+  description: Content related to API usage and integrations
+
+# Business & Use Cases
+business-intelligence:
+  label: Business Intelligence
+  permalink: /business-intelligence
+  description: Content related to using data for informed decision-making
+
+use-cases:
+  label: Use Cases
+  permalink: /use-cases
+  description: Real-world examples of how data flow platforms are used
+
+comparison:
+  label: Comparison
+  permalink: /comparison
+  description: Head-to-head comparisons of different data flow platforms

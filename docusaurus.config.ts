@@ -68,11 +68,11 @@ const config: Config = {
       items: [
         {
           type: "docSidebar",
-          sidebarId: "tutorialSidebar",
+          sidebarId: "documentationSidebar",
           position: "left",
-          label: "Tutorial",
+          label: "Documentation",
         },
-        { to: "/blog", label: "Blog", position: "left" },
+        { to: "/blog", label: "Blog posts", position: "left" },
         {
           href: "https://github.com/dataflowops",
           label: "GitHub",
@@ -87,8 +87,12 @@ const config: Config = {
           title: "Docs",
           items: [
             {
-              label: "Tutorial",
-              to: "/docs/intro",
+              label: "Documentation",
+              to: "/docs",
+            },
+            {
+              label: "Blog posts",
+              to: "/blog",
             },
           ],
         },
@@ -96,16 +100,8 @@ const config: Config = {
           title: "Community",
           items: [
             {
-              label: "AppBaza.com",
-              href: "https://appbaza.com",
-            },
-            {
-              label: "CoderVlogger.com",
-              href: "https://codervlogger.com",
-            },
-            {
-              label: "X",
-              href: "https://twitter.com/AppBazaCOM",
+              label: "GitHub",
+              href: "https://github.com/dataflowops",
             },
           ],
         },
@@ -113,17 +109,21 @@ const config: Config = {
           title: "More",
           items: [
             {
-              label: "Blog",
-              to: "/blog",
+              label: "AppBaza.com",
+              href: "https://appbaza.com",
             },
             {
-              label: "GitHub",
-              href: "https://github.com/dataflowops",
+              label: "X",
+              href: "https://twitter.com/AppBazaCOM",
+            },
+            {
+              label: "CoderVlogger.com",
+              href: "https://codervlogger.com",
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Data Flow Platform. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Documentation and wiki page for Data Flow Platform`,
     },
     prism: {
       theme: prismThemes.github,
