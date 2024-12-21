@@ -34,7 +34,7 @@ function LatestBlogPost() {
         <div className="row">
           <div className="col col--8 col--offset-2">
             <Heading as="h2" className={styles.sectionTitle}>
-              Latest from our Blog
+              Latest Blog Posts
             </Heading>
             <div className={styles.blogPost}>
               <Heading as="h3">
@@ -55,6 +55,37 @@ function LatestBlogPost() {
     </div>
   );
 }
+
+function LatestDocs() {
+  return (
+    <div className={styles.latestDocsSection}>
+      <div className="container">
+        <div className="row">
+          <div className="col col--8 col--offset-2">
+            <Heading as="h2" className={styles.sectionTitle}>
+              Latest Documentation Articles
+            </Heading>
+            <div className={styles.docsEntry}>
+              <Heading as="h3">
+                <Link to="/docs/development">
+                  Dummy Workflow Example
+                </Link>
+              </Heading>
+              <p>
+                Explore our dummy workflow tutorial that demonstrates the core concepts
+                of the workflow engine. Learn how to create a simple 3-step workflow
+                that processes text input, including static text generation, text
+                operations, and output handling. Perfect for getting started with
+                the Data Flow Platform.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 
 export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
@@ -79,6 +110,7 @@ export default function Home(): JSX.Element {
           </div>
         </div>
         <LatestBlogPost />
+        <LatestDocs />
       </main>
     </Layout>
   );
