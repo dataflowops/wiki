@@ -70,8 +70,7 @@ const config: Config = {
         // maxWidth: 500,
       },
     },
-    // Replace with your project's social card
-    image: "img/docusaurus-social-card.jpg",
+    image: "img/dataflow-social-card.png",
     navbar: {
       title: "Data Flow Platform",
       logo: {
