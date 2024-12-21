@@ -3,6 +3,7 @@ import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import Heading from '@theme/Heading';
+import { ContentSection, ChangeType } from '../components/ContentSection';
 
 import styles from './index.module.css';
 
@@ -27,65 +28,32 @@ function HomepageHeader() {
   );
 }
 
-function LatestBlogPost() {
-  return (
-    <div className={styles.latestBlogSection}>
-      <div className="container">
-        <div className="row">
-          <div className="col col--8 col--offset-2">
-            <Heading as="h2" className={styles.sectionTitle}>
-              Latest Blog Posts
-            </Heading>
-            <div className={styles.blogPost}>
-              <Heading as="h3">
-                <Link to="/blog/build-ai-workflows-with-data-flow-platform">
-                  Building AI-Powered Workflows with Data Flow Platform
-                </Link>
-              </Heading>
-              <p>
-                Learn how to create automated workflows that combine AI models,
-                application integrations, and ETL processes using the Data Flow Platform.
-                This tutorial demonstrates how to build and deploy intelligent workflows
-                as standalone AI agents accessible via API or web interface.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
+const blogPosts = [
+  {
+    title: "Building AI-Powered Workflows with Data Flow Platform",
+    link: "/blog/build-ai-workflows-with-data-flow-platform",
+    changeType: ChangeType.Added,
+    changeDate: "December 18, 2024",
+    description: "Learn how to create automated workflows that combine AI models, application integrations, and ETL processes using the Data Flow Platform. This tutorial demonstrates how to build and deploy intelligent workflows as standalone AI agents accessible via API or web interface."
+  },
+];
 
-function LatestDocs() {
-  return (
-    <div className={styles.latestDocsSection}>
-      <div className="container">
-        <div className="row">
-          <div className="col col--8 col--offset-2">
-            <Heading as="h2" className={styles.sectionTitle}>
-              Latest Documentation Articles
-            </Heading>
-            <div className={styles.docsEntry}>
-              <Heading as="h3">
-                <Link to="/docs/development">
-                  Dummy Workflow Example
-                </Link>
-              </Heading>
-              <p>
-                Explore our dummy workflow tutorial that demonstrates the core concepts
-                of the workflow engine. Learn how to create a simple 3-step workflow
-                that processes text input, including static text generation, text
-                operations, and output handling. Perfect for getting started with
-                the Data Flow Platform.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
+const docItems = [
+  {
+    title: "Dummy Workflow Example",
+    link: "/docs/development",
+    changeType: ChangeType.Added,
+    changeDate: "December 20, 2024",
+    description: "Learn how to create a simple 3-step workflow that processes text input, including static text generation, text operations, and output handling."
+  },
+  {
+    title: "Workflows",
+    link: "/docs/workflows",
+    changeType: ChangeType.Added,
+    changeDate: "December 20, 2024",
+    description: "Learn how to create, execute, and monitor workflows with the Data Flow Platform."
+  },
+];
 
 export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
@@ -109,8 +77,16 @@ export default function Home(): JSX.Element {
             </div>
           </div>
         </div>
-        <LatestBlogPost />
-        <LatestDocs />
+        <ContentSection
+          title="Latest Documentation Articles"
+          className={styles.latestDocsSection}
+          items={docItems}
+        />
+        <ContentSection
+          title="Latest Blog Posts"
+          className={styles.latestBlogSection}
+          items={blogPosts}
+        />
       </main>
     </Layout>
   );
