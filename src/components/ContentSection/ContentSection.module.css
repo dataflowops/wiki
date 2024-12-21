@@ -1,14 +1,15 @@
 .sectionTitle {
   margin-bottom: 2rem;
   text-align: center;
+  font-weight: bold;
 }
 
 .contentEntry {
-  padding: 2rem;
+  padding: 1.5rem;
   background-color: var(--ifm-background-color);
   border-radius: var(--ifm-border-radius);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .contentEntry:last-child {
@@ -16,15 +17,29 @@
 }
 
 .contentEntry h3 {
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+}
+
+.contentEntry h3 a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.contentEntry h3 a:hover {
+  color: var(--ifm-color-primary);
 }
 
 .changeType {
   font-size: 0.8rem;
-  color: var(--ifm-color-emphasis-700);
+  color: var(--ifm-color-emphasis-900);
+  font-style: italic;
+  margin-bottom: 0.5rem;
 }
 
-.contentEntry p {
+.description {
   margin-bottom: 0;
   color: var(--ifm-color-emphasis-700);
+  line-height: 1.5;
+  margin-top: 0.5rem;
 }

@@ -31,7 +31,7 @@ export function ContentSection({ title, className, items }: ContentSectionProps)
             <Heading as="h2" className={styles.sectionTitle}>
               {title}
             </Heading>
-            {items.map((item, index) => (
+            {items.slice().reverse().map((item, index) => (
               <div key={index} className={styles.contentEntry}>
                 <Heading as="h3">
                   <Link to={item.link}>
@@ -39,7 +39,7 @@ export function ContentSection({ title, className, items }: ContentSectionProps)
                   </Link>
                 </Heading>
                 <p className={styles.changeType}>{item.changeType} on {item.changeDate}</p>
-                <p>{item.description}</p>
+                <p className={styles.description}>{item.description}</p>
               </div>
             ))}
           </div>
