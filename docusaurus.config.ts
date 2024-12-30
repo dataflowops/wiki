@@ -128,10 +128,6 @@ const config: Config = {
               href: "https://appbaza.com",
             },
             {
-              label: "X",
-              href: "https://twitter.com/AppBazaCOM",
-            },
-            {
               label: "CoderVlogger.com",
               href: "https://codervlogger.com",
             },
