@@ -1,6 +1,6 @@
 ---
 slug: workflow-to-download-and-transcribe-youtube-videos-via-api
-title: Workflow to Download and Transcribe YouTube Videos via API
+title: Get YouTube Video Transcription with an API call
 authors: [kenanbek]
 tags:
   [
@@ -16,21 +16,25 @@ tags:
   ]
 ---
 
-Create an automated workflow to download and transcribe YouTube videos via DataFlow Platform's API. This tutorial demonstrates building and executing workflows as standalone AI agents accessible via API or web interface.
+In this blog post, we will create an automated workflow to download and transcribe YouTube videos via DataFlow Platform's API. This tutorial demonstrates building and executing a workflow as standalone automation process accessible via API or web interface.
 
 <!-- truncate -->
 
 ## Workflow
 
+The main execution unit of the DataFlow Platform is a workflow. A workflow is a sequence of tasks that are executed in order.
+
 For this workflow, we need to have the following automation steps:
 
-1. Accept a YouTube video URL as input
+1. Receive a YouTube video URL as input
 2. Download a YouTube video by its URL
 3. Extract the video's audio
 4. Use a cloud AI service to transcribe the audio
 5. Return the transcription as a response
 
-DataFlow Platform uses task types to implement workflows. We need the following task types to implement this workflow:
+Unit of work in DataFlow Platform is a task. A task is a single unit of work that can be executed in a workflow. With the task types, we can implement the automation steps.
+
+We need the following task types to implement this workflow:
 
 - **Youtube Downloader**: To download the YouTube video
 - **Extract Audio from Video**: To extract the video's audio
@@ -38,7 +42,7 @@ DataFlow Platform uses task types to implement workflows. We need the following 
 
 To have this automation via the platform, we need first to create a workflow unit with all the tasks, and connect these tasks.
 
-## Create a Workflow via API
+## Workflow to Automate the Process
 
 Here is the initial version of the workflow defined in JSON format:
 
@@ -77,7 +81,7 @@ Here is the initial version of the workflow defined in JSON format:
       }
     }
   ],
-  "outputs": [
+  "output": [
     {
       "name": "transcription_text",
       "type": "string",
@@ -87,6 +91,8 @@ Here is the initial version of the workflow defined in JSON format:
   ]
 }
 ```
+
+Task
 
 ## Create a Workflow
 

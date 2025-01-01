@@ -114,7 +114,7 @@ business-intelligence:
 use-cases:
   label: Use Cases
   permalink: /use-cases
-  description: Real-world examples of how data flow platforms are used
+  description: Real-world examples of how the Data Flow Platform is used
 
 comparison:
   label: Comparison

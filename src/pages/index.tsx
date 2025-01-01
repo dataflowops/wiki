@@ -36,6 +36,13 @@ const blogPosts = [
     changeDate: "December 18, 2024",
     description: "Learn how to create automated workflows that combine AI models, application integrations, and ETL processes using the Data Flow Platform. This tutorial demonstrates how to build and deploy intelligent workflows as standalone AI agents accessible via API or web interface."
   },
+  {
+    title: "Get YouTube Video Transcription via API",
+    link: "/blog/workflow-to-download-and-transcribe-youtube-videos-via-api",
+    changeType: ChangeType.Added,
+    changeDate: "December 31, 2024",
+    description: "Learn how to create an automated workflow to download and transcribe YouTube videos via DataFlow Platform's API."
+  },
 ];
 
 const docItems = [
@@ -52,6 +59,13 @@ const docItems = [
     changeType: ChangeType.Added,
     changeDate: "December 20, 2024",
     description: "Learn how to create, execute, and monitor workflows with the Data Flow Platform."
+  },
+  {
+    title: "Task Types",
+    link: "/docs/task-types",
+    changeType: ChangeType.Added,
+    changeDate: "December 20, 2024",
+    description: "Learn how to use the Data Flow Platform's task types to create workflows."
   },
 ];
 

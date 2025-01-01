@@ -34,7 +34,7 @@ Here is the JSON structure of the workflow:
 ```json
 {
   "name": "Dummy Workflow",
-  "steps": [
+  "tasks": [
     { "type": "StaticTextInput", "input": "Hello, world!" },
     { "type": "TextOperations.Reverse" },
     { "type": "Echo" }
