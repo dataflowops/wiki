@@ -5,13 +5,21 @@ sidebar_position: 2
 
 # Workflows
 
-Workflows API is the core part of the Data Flow Platform. It allows you to create, execute, and manage workflows.
+Workflows are the main execution unit of the Data Flow Platform. They are the sequences of tasks that are executed in order.
 
-## Workflow Creation
+## Workflow
 
 Users can create workflows via the UI or API.
 
-Example request looks like following:
+Workflow creation and execution are two separate steps. Workflows can be created and modified independently.
+
+:::info
+For this documentation, we will use the following use-case:
+
+We want to create a workflow to download a webpage, extract the main content, summarize it using OpenAI's GPT model, and return the summary text.
+:::
+
+Example request looks like this:
 
 **API Request**:
 
@@ -23,16 +31,55 @@ POST /workflows
 
 ```json
 {
-  "name": "Dummy Workflow",
-  "steps": [
-    { "type": "StaticTextInput", "input": "Hello, world!" },
-    { "type": "TextOperation.Reverse" },
-    { "type": "Echo" }
+  "name": "Webpage Content Summarization Workflow using GPT AI model",
+  "description": "Downloads a webpage, extracts main content, summarizes it using OpenAI's GPT model, and returns the summary text.",
+  "input": [
+    {
+      "name": "webpage_url",
+      "type": "string",
+      "description": "The URL of the webpage to summarize."
+    }
+  ],
+  "tasks": [
+    {
+      "ref": "download_webpage",
+      "type": "Web.Download",
+      "input": {
+        "url": "{{input.webpage_url}}"
+      }
+    },
+    {
+      "ref": "extract_text",
+      "type": "Web.ExtractText",
+      "input": {
+        "html_content": "{{refs.download_webpage.output.html_content}}"
+      }
+    },
+    {
+      "ref": "summarize_text",
+      "type": "OpenAI.Text.Summarize",
+      "input": {
+        "text": "{{refs.extract_text.output.text}}",
+        "model": "gpt-3.5-turbo",
+        "parameters": {
+          "max_tokens": 150,
+          "temperature": 0.7
+        }
+      }
+    }
+  ],
+  "output": [
+    {
+      "name": "summary_text",
+      "type": "string",
+      "value": "{{refs.summarize_text.output.summary}}",
+      "description": "The summarized text of the webpage content."
+    }
   ]
 }
 ```
 
-Each request is validated against the scheme. Steps are validated with respect to the input and output types.
+Each request is validated against the scheme. Tasks are validated with respect to the input and output types.
 
 If the workflow is valid, `201 Created` response is returned with the `Workflow ID`.
 
@@ -40,7 +87,8 @@ If the workflow is valid, `201 Created` response is returned with the `Workflow 
 
 ```json
 {
-  "workflow_id": "wf-4g7h8j9k"
+  "workflow_id": "wf-4g7h8j9k",
+  "workflow_version": 1
 }
 ```
 
@@ -60,37 +108,32 @@ To start the workflow execution, users need to send the request to the following
 POST /workflows/{workflow_id}/execute
 ```
 
+**Request Body**:
+
+Most workflows require some input data. Users can provide the input data in the request body.
+
+```json
+{
+  "input": {
+    "webpage_url": "https://example.com"
+  }
+}
+```
+
+Before the workflow execution starts, the input data is validated against the workflow input schema. If the input data is invalid, the execution will be rejected with the `400 Bad Request` response.
+
 Request to the execution API will queue the workflow execution and return the `Execution ID`.
 
 **Response Body**:
 
 ```json
 {
-  "execution_id": "ex-1a2b3c4d"
+  "workflow_id": "wf-4g7h8j9k",
+  "workflow_version": 1,
+  "execution_id": "ex-1a2b3c4d",
+  "status": "PENDING"
 }
 ```
-
-### Input Data
-
-Most workflows require some input data. Users can provide the input data in the request body.
-
-**API Request**:
-
-```
-POST /workflows/{workflow_id}/execute
-```
-
-**Request Body**:
-
-```json
-{
-  "input": {
-    "text": "Hello, world!"
-  }
-}
-```
-
-Before the workflow execution starts, the input data is validated against the workflow input schema. If the input data is invalid, the execution will be rejected with the `400 Bad Request` response.
 
 ### Execution Status
 
@@ -108,30 +151,19 @@ GET /workflows/{workflow_id}/executions/{execution_id}
 {
   "execution_id": "ex-1a2b3c4d",
   "workflow_id": "wf-4g7h8j9k",
+  "workflow_version": 1,
   "status": "RUNNING",
   "tasks": [
     {
-      "task_id": "task-5e6f7g8h",
-      "type": "StaticTextInput",
-      "status": "COMPLETED",
-      "input": {
-        "text": "Hello, world!"
-      },
-      "output": {
-        "text": "Hello, world!"
-      }
+      "ref": "download_webpage",
+      "status": "RUNNING"
     },
     {
-      "task_id": "task-9i0j1k2l",
-      "type": "TextOperation.Reverse",
-      "status": "RUNNING",
-      "input": {
-        "text": "Hello, world!"
-      }
+      "ref": "extract_text",
+      "status": "PENDING"
     },
     {
-      "task_id": "task-3m4n5o6p",
-      "type": "Echo",
+      "ref": "summarize_text",
       "status": "PENDING"
     }
   ]
@@ -190,7 +222,7 @@ POST /workflows/{workflow_id}/execute
 ```json
 {
   "input": {
-    "text": "Hello, world!"
+    "webpage_url": "https://example.com"
   },
   "webhook_url": "https://example.com/webhook"
 }
