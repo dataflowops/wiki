@@ -5,8 +5,8 @@ import type * as Preset from "@docusaurus/preset-classic";
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: "Data Flow Wiki",
-  tagline: "Data Flow and Workflow Automation Platform",
+  title: "Data Flow Platform",
+  tagline: "Workflow automation platform and integration hub",
   favicon: "img/favicon.ico",
 
   // Set the production url of your site here

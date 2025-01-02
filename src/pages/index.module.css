@@ -28,6 +28,13 @@
   color: var(--ifm-color-emphasis-700);
 }
 
+.platformDescriptionHighlight {
+  font-weight: 900;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--ifm-color-primary);
+}
+
 .latestBlogSection {
   padding: 4rem 0;
   background-color: var(--ifm-color-emphasis-100);

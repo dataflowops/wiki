@@ -81,11 +81,36 @@ export default function Home(): JSX.Element {
           <div className="container">
             <div className="row">
               <div className="col col--8 col--offset-2">
+                <p className={styles.platformDescriptionHighlight}>
+                  Build automated workflows.
+                </p>
+
                 <p className={styles.platformDescription}>
-                  Our platform empowers developers to build and orchestrate AI-powered applications
-                  with ease. Through intuitive visual workflows and robust integration capabilities,
-                  you can connect multiple AI services, manage data flows, and create sophisticated
-                  AI solutions without getting bogged down by complex infrastructure.
+                  Create workflows by chaining automated tasks with dynamic input and output configuration.
+                </p>
+
+                <p className={styles.platformDescriptionHighlight}>
+                  Connect anything with everything.
+                </p>
+
+                <p className={styles.platformDescription}>
+                  Integrate AI models, web APIs, databases, external services, various data sources, and data transformations into a single workflow.
+                </p>
+
+                <p className={styles.platformDescriptionHighlight}>
+                  Run workflows via API or web interface.
+                </p>
+
+                <p className={styles.platformDescription}>
+                  Execute workflows via API or Web UI, monitor execution performance, and get detailed logs and metrics.
+                </p>
+
+                <p className={styles.platformDescriptionHighlight}>
+                  Schedule automated processes.
+                </p>
+
+                <p className={styles.platformDescription}>
+                  Plan and schedule workflows to run at specific times, intervals or events (external triggers, webhooks, etc.), ensuring timely execution of automated processes.
                 </p>
               </div>
             </div>
@@ -102,6 +127,6 @@ export default function Home(): JSX.Element {
           items={blogPosts}
         />
       </main>
-    </Layout>
+    </Layout >
   );
 }
