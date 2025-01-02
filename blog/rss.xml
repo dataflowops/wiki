@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xsl" href="rss.xsl"?>
 <rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
     <channel>
-        <title>Data Flow Wiki Blog</title>
+        <title>Data Flow Platform Blog</title>
         <link>https://dataflow.wiki/blog</link>
-        <description>Data Flow Wiki Blog</description>
+        <description>Data Flow Platform Blog</description>
         <lastBuildDate>Wed, 01 Jan 2025 21:34:50 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>

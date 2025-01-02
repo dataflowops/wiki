@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xsl" href="atom.xsl"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://dataflow.wiki/blog</id>
-    <title>Data Flow Wiki Blog</title>
+    <title>Data Flow Platform Blog</title>
     <updated>2025-01-01T21:34:50.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://dataflow.wiki/blog"/>
-    <subtitle>Data Flow Wiki Blog</subtitle>
+    <subtitle>Data Flow Platform Blog</subtitle>
     <icon>https://dataflow.wiki/img/favicon.ico</icon>
     <entry>
         <title type="html"><![CDATA[Get YouTube Video Transcription with an API call]]></title>
