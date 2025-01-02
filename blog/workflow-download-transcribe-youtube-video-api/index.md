@@ -59,24 +59,24 @@ Here is the initial version of the workflow defined in JSON format:
   ],
   "tasks": [
     {
-      "ref": "download_video",
+      "name": "download_video",
       "type": "YouTube.Download",
       "input": {
         "video_url": "{{input.youtube_url}}"
       }
     },
     {
-      "ref": "extract_audio",
+      "name": "extract_audio",
       "type": "Video.ExtractAudio",
       "input": {
-        "video": "{{refs.download_video.output.video}}"
+        "video": "{{tasks.download_video.output.video}}"
       }
     },
     {
-      "ref": "transcribe_audio",
+      "name": "transcribe_audio",
       "type": "OpenAI.Audio.Transcribe",
       "input": {
-        "file": "{{refs.extract_audio.output.audio}}",
+        "file": "{{tasks.extract_audio.output.audio}}",
         "model": "whisper-1"
       }
     }
@@ -85,7 +85,7 @@ Here is the initial version of the workflow defined in JSON format:
     {
       "name": "transcription_text",
       "type": "string",
-      "value": "{{refs.transcribe_audio.output.text}}",
+      "value": "{{tasks.transcribe_audio.output.text}}",
       "description": "The transcribed text of the YouTube video's audio."
     }
   ]

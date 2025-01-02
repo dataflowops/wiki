@@ -42,24 +42,24 @@ POST /workflows
   ],
   "tasks": [
     {
-      "ref": "download_webpage",
+      "name": "download_webpage",
       "type": "Web.Download",
       "input": {
         "url": "{{input.webpage_url}}"
       }
     },
     {
-      "ref": "extract_text",
+      "name": "extract_text",
       "type": "Web.ExtractText",
       "input": {
-        "html_content": "{{refs.download_webpage.output.html_content}}"
+        "html_content": "{{tasks.download_webpage.output.html_content}}"
       }
     },
     {
-      "ref": "summarize_text",
+      "name": "summarize_text",
       "type": "OpenAI.Text.Summarize",
       "input": {
-        "text": "{{refs.extract_text.output.text}}",
+        "text": "{{tasks.extract_text.output.text}}",
         "model": "gpt-3.5-turbo",
         "parameters": {
           "max_tokens": 150,
@@ -72,7 +72,7 @@ POST /workflows
     {
       "name": "summary_text",
       "type": "string",
-      "value": "{{refs.summarize_text.output.summary}}",
+      "value": "{{tasks.summarize_text.output.summary}}",
       "description": "The summarized text of the webpage content."
     }
   ]
@@ -155,15 +155,15 @@ GET /workflows/{workflow_id}/executions/{execution_id}
   "status": "RUNNING",
   "tasks": [
     {
-      "ref": "download_webpage",
+      "name": "download_webpage",
       "status": "RUNNING"
     },
     {
-      "ref": "extract_text",
+      "name": "extract_text",
       "status": "PENDING"
     },
     {
-      "ref": "summarize_text",
+      "name": "summarize_text",
       "status": "PENDING"
     }
   ]

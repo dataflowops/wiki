@@ -40,7 +40,7 @@ const blogPosts = [
     title: "Get YouTube Video Transcription via API",
     link: "/blog/workflow-to-download-and-transcribe-youtube-videos-via-api",
     changeType: ChangeType.Added,
-    changeDate: "December 31, 2024",
+    changeDate: "January 1, 2025",
     description: "Learn how to create an automated workflow to download and transcribe YouTube videos via DataFlow Platform's API."
   },
 ];
@@ -54,18 +54,18 @@ const docItems = [
     description: "Learn how to create a simple 3-step workflow that processes text input, including static text generation, text operations, and output handling."
   },
   {
-    title: "Workflows",
-    link: "/docs/workflows",
-    changeType: ChangeType.Added,
-    changeDate: "December 20, 2024",
-    description: "Learn how to create, execute, and monitor workflows with the Data Flow Platform."
-  },
-  {
     title: "Task Types",
     link: "/docs/task-types",
     changeType: ChangeType.Added,
     changeDate: "December 20, 2024",
     description: "Learn how to use the Data Flow Platform's task types to create workflows."
+  },
+  {
+    title: "Workflows",
+    link: "/docs/workflows",
+    changeType: ChangeType.Updated,
+    changeDate: "January 1, 2025",
+    description: "Learn how to create, execute, and monitor workflows with the Data Flow Platform."
   },
 ];
 
