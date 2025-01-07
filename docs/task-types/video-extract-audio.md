@@ -15,22 +15,22 @@ Workflow task type to extract the audio from a video.
     "type": "Video.ExtractAudio",
     "category": "Video",
     "description": "Extract the audio from a video",
-    "input": [
+    "inputs": [
       {
         "name": "video",
         "type": "file",
         "required": true,
         "description": "The video content to extract the audio from",
-        "example": "{file}"
+        "example": "<file>"
       }
     ],
-    "output": [
+    "outputs": [
       {
         "name": "audio",
         "type": "file",
         "default": true,
         "description": "The extracted audio content.",
-        "example": "{file}"
+        "example": "<file>"
       }
     ]
   }
@@ -51,8 +51,8 @@ Workflow task type to extract the audio from a video.
 {
   "id": "extract_audio",
   "type": "Video.ExtractAudio",
-  "input": {
-    "video": "{{workflow.input.video}}"
+  "inputs": {
+    "video": "{{inputs.video}}"
   }
 }
 ```

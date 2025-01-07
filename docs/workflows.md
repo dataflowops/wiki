@@ -33,7 +33,7 @@ POST /workflows
 {
   "name": "Webpage Content Summarization Workflow using GPT AI model",
   "description": "Downloads a webpage, extracts main content, summarizes it using OpenAI's GPT model, and returns the summary text.",
-  "input": [
+  "inputs": [
     {
       "name": "webpage_url",
       "type": "string",
@@ -44,35 +44,33 @@ POST /workflows
     {
       "name": "download_webpage",
       "type": "Web.Download",
-      "input": {
-        "url": "{{input.webpage_url}}"
+      "inputs": {
+        "url": "{{inputs.webpage_url}}"
       }
     },
     {
       "name": "extract_text",
       "type": "Web.ExtractText",
-      "input": {
-        "html_content": "{{tasks.download_webpage.output.html_content}}"
+      "inputs": {
+        "html_content": "{{tasks.download_webpage.outputs.html_content}}"
       }
     },
     {
       "name": "summarize_text",
       "type": "OpenAI.Text.Summarize",
-      "input": {
-        "text": "{{tasks.extract_text.output.text}}",
+      "inputs": {
+        "text": "{{tasks.extract_text.outputs.text}}",
         "model": "gpt-3.5-turbo",
-        "parameters": {
-          "max_tokens": 150,
-          "temperature": 0.7
-        }
+        "max_tokens": 150,
+        "temperature": 0.7
       }
     }
   ],
-  "output": [
+  "outputs": [
     {
       "name": "summary_text",
       "type": "string",
-      "value": "{{tasks.summarize_text.output.summary}}",
+      "value": "{{tasks.summarize_text.outputs.summary}}",
       "description": "The summarized text of the webpage content."
     }
   ]
@@ -114,7 +112,7 @@ Most workflows require some input data. Users can provide the input data in the 
 
 ```json
 {
-  "input": {
+  "inputs": {
     "webpage_url": "https://example.com"
   }
 }
@@ -221,10 +219,12 @@ POST /workflows/{workflow_id}/execute
 
 ```json
 {
-  "input": {
+  "inputs": {
     "webpage_url": "https://example.com"
   },
-  "webhook_url": "https://example.com/webhook"
+  "monitoring": {
+    "webhook_url": "https://example.com/webhook"
+  }
 }
 ```
 

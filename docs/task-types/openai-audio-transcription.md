@@ -15,13 +15,13 @@ Workflow task type to call OpenAI's Audio Transcription API (speech-to-text mode
     "type": "OpenAI.Audio.Transcription",
     "category": "AI",
     "description": "Call OpenAI's Whisper model to transcribe the audio.",
-    "input": [
+    "inputs": [
       {
         "name": "file",
         "type": "file",
         "required": true,
         "description": "The audio file to transcribe.",
-        "example": "{file}"
+        "example": "<file>"
       },
       {
         "name": "model",
@@ -61,7 +61,7 @@ Workflow task type to call OpenAI's Audio Transcription API (speech-to-text mode
         "example": "0.0"
       }
     ],
-    "output": [
+    "outputs": [
       {
         "name": "text",
         "type": "string",
@@ -93,8 +93,8 @@ Workflow task type to call OpenAI's Audio Transcription API (speech-to-text mode
 {
   "id": "transcribe_audio",
   "type": "OpenAI.Audio.Transcription",
-  "input": {
-    "file": "{{workflow.input.file}}",
+  "inputs": {
+    "file": "{{inputs.file}}",
     "model": "whisper-1",
     "language": "en",
     "prompt": "The audio is a conversation between two people.",

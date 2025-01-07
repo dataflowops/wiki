@@ -15,7 +15,7 @@ Workflow task type to download a YouTube video by its URL.
     "type": "YouTube.Download",
     "category": "YouTube",
     "description": "Download a video from YouTube by its URL",
-    "input": [
+    "inputs": [
       {
         "name": "youtube_url",
         "type": "string",
@@ -24,13 +24,13 @@ Workflow task type to download a YouTube video by its URL.
         "example": "https://www.youtube.com/watch?v=00000000000"
       }
     ],
-    "output": [
+    "outputs": [
       {
         "name": "video",
         "type": "file",
         "default": true,
         "description": "The downloaded video content",
-        "example": "{file}"
+        "example": "<file>"
       }
     ]
   }
@@ -51,8 +51,8 @@ Workflow task type to download a YouTube video by its URL.
 {
   "id": "download_video",
   "type": "YouTube.Downloader",
-  "input": {
-    "youtube_url": "{{workflow.input.youtube_url}}"
+  "inputs": {
+    "youtube_url": "{{inputs.youtube_url}}"
   }
 }
 ```
