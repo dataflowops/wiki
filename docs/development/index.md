@@ -33,11 +33,39 @@ Here is the JSON structure of the workflow:
 
 ```json
 {
-  "name": "Dummy Workflow",
+  "title": "Dummy Workflow",
+  "description": "This is a dummy workflow to show how the workflow engine works",
   "tasks": [
-    { "type": "StaticTextInput", "input": "Hello, world!" },
-    { "type": "TextOperations.Reverse" },
-    { "type": "Echo" }
+    {
+      "name": "InputText",
+      "type": "StaticTextInput",
+      "inputs": [
+        {
+          "name": "Text",
+          "value": "Hello, world!"
+        }
+      ]
+    },
+    {
+      "name": "ReverseText",
+      "type": "TextOperations.Reverse",
+      "inputs": [
+        {
+          "name": "Text",
+          "value": "{{Tasks.InputText.Outputs.Text}}"
+        }
+      ]
+    },
+    {
+      "name": "EchoText",
+      "type": "Echo",
+      "inputs": [
+        {
+          "name": "Text",
+          "value": "{{Tasks.ReverseText.Outputs.Text}}"
+        }
+      ]
+    }
   ]
 }
 ```

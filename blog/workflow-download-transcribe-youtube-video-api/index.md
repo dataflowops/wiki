@@ -48,51 +48,49 @@ Here is the initial version of the workflow defined in JSON format:
 
 ```json
 {
-  "name": "YouTube Video Transcription Workflow using Speech-to-Text AI model",
-  "description": "Downloads a YouTube video, extracts audio, transcribes it using OpenAI's Whisper model, and returns the transcription text.",
+  "title": "YouTube Video Transcription Workflow using Speech-to-Text AI model",
+  "description": "Downloads a YouTube video, extracts audio, transcribes it using OpenAI's Whisper model, and returns the transcription text",
   "inputs": [
     {
-      "name": "youtube_url",
-      "type": "string",
-      "description": "The URL of the YouTube video to transcribe."
+      "name": "YouTubeUrl",
+      "type": "Text",
+      "description": "The URL of the YouTube video to transcribe"
     }
   ],
   "tasks": [
     {
-      "name": "download_video",
+      "name": "DownloadVideo",
       "type": "YouTube.Download",
       "inputs": {
-        "video_url": "{{inputs.youtube_url}}"
+        "youtubeUrl": "{{Inputs.YouTubeUrl}}"
       }
     },
     {
-      "name": "extract_audio",
+      "name": "ExtractAudio",
       "type": "Video.ExtractAudio",
       "inputs": {
-        "video": "{{tasks.download_video.outputs.video}}"
+        "video": "{{Tasks.DownloadVideo.Outputs.Video}}"
       }
     },
     {
-      "name": "transcribe_audio",
+      "name": "TranscribeAudio",
       "type": "OpenAI.Audio.Transcribe",
       "inputs": {
-        "file": "{{tasks.extract_audio.outputs.audio}}",
+        "file": "{{Tasks.ExtractAudio.Outputs.Audio}}",
         "model": "whisper-1"
       }
     }
   ],
   "outputs": [
     {
-      "name": "transcription_text",
-      "type": "string",
-      "value": "{{tasks.transcribe_audio.outputs.text}}",
-      "description": "The transcribed text of the YouTube video's audio."
+      "name": "TranscriptionText",
+      "type": "Text",
+      "value": "{{Tasks.TranscribeAudio.Outputs.Text}}",
+      "description": "The transcribed text of the YouTube video's audio"
     }
   ]
 }
 ```
-
-Task
 
 ## Create a Workflow
 
@@ -105,16 +103,24 @@ curl -X POST \
   https://api.dataflow.wiki/workflows
 ```
 
-Save the workflow ID, we will need it to execute the workflow.
+If the workflow is created successfully, you will receive a response with the Workflow ID.
+
+```json
+{
+  "workflowId": "1234567890"
+}
+```
+
+Save the Workflow ID, we will need it to execute the workflow.
 
 ## Execute the Workflow
 
-To execute the workflow, you need to send a POST request to the `/workflows/{workflow_id}/execute` endpoint with the input data for the workflow.
+To execute the workflow, you need to send a POST request to the `/workflows/{{WorkflowId}}/execute` endpoint with the input data for the workflow.
 
 **API Request**:
 
-```
-POST /workflows/{workflow_id}/execute
+```bash
+POST /workflows/{{WorkflowId}}/execute
 
 Headers:
 - Content-Type: application/json
@@ -126,7 +132,7 @@ Headers:
 ```json
 {
   "inputs": {
-    "youtube_url": "https://www.youtube.com/watch?v=00000000000"
+    "YouTubeUrl": "https://www.youtube.com/watch?v=00000000000"
   }
 }
 ```
@@ -137,15 +143,15 @@ The CURL version of the request would look like this:
 curl -X POST \
   -H "Content-Type: application/json" \
   -H "X-OpenAI-Key: your_openai_api_key" \
-  -d '{"inputs": {"youtube_url": "https://www.youtube.com/watch?v=00000000000"}, "monitoring": {"webhook_url": "https://example.com/webhook"}}' \
-  https://api.dataflow.wiki/workflows/execute
+  -d '{"inputs": {"YouTubeUrl": "https://www.youtube.com/watch?v=00000000000"}, "monitoring": {"webhook": "https://example.com/webhook"}}' \
+  https://api.dataflow.wiki/workflows/{{WorkflowId}}/execute
 ```
 
 Since this workflow uses OpenAI's Whisper model, you must also include your OpenAI API key in the request header.
 
 :::info
 
-Data Flow Platform uses provided API keys only for the tasks that require them and does not store them.
+Data Flow Platform uses provided API keys only for the tasks that require them and does not store them for future use.
 
 :::
 
@@ -153,3 +159,5 @@ Data Flow Platform uses provided API keys only for the tasks that require them a
 
 - Provide input and output language options
 - Provide a way to save the transcription to a remote file storage
+
+For detailed documentation and examples, visit our [Documentation Portal](/docs).

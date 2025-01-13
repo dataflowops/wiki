@@ -7,7 +7,27 @@ slug: youtube-download
 
 Workflow task type to download a YouTube video by its URL.
 
-# Definition
+## Inputs
+
+- `Url`: The URL of the YouTube video to download.
+
+## Outputs
+
+- `Video`: The video object.
+
+# Example Usage
+
+```json
+{
+  "name": "DownloadVideo",
+  "type": "YouTube.Download",
+  "inputs": {
+    "Url": "https://www.youtube.com/watch?v=00000000000"
+  }
+}
+```
+
+# Specification
 
 ```json
 {
@@ -17,7 +37,7 @@ Workflow task type to download a YouTube video by its URL.
     "description": "Download a video from YouTube by its URL",
     "inputs": [
       {
-        "name": "youtube_url",
+        "name": "Url",
         "type": "string",
         "required": true,
         "description": "The URL of the YouTube video to download",
@@ -26,33 +46,13 @@ Workflow task type to download a YouTube video by its URL.
     ],
     "outputs": [
       {
-        "name": "video",
+        "name": "Video",
         "type": "file",
         "default": true,
         "description": "The downloaded video content",
-        "example": "<file>"
+        "example": "<<file>>"
       }
     ]
-  }
-}
-```
-
-## Inputs
-
-- `url`: The URL of the YouTube video to download.
-
-## Outputs
-
-- `video`: The video object.
-
-# Example Usage
-
-```json
-{
-  "id": "download_video",
-  "type": "YouTube.Downloader",
-  "inputs": {
-    "youtube_url": "{{inputs.youtube_url}}"
   }
 }
 ```

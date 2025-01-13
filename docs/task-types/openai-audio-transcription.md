@@ -7,73 +7,6 @@ slug: openai-audio-transcription
 
 Workflow task type to call OpenAI's Audio Transcription API (speech-to-text model).
 
-# Definition
-
-```json
-{
-  "specification": {
-    "type": "OpenAI.Audio.Transcription",
-    "category": "AI",
-    "description": "Call OpenAI's Whisper model to transcribe the audio.",
-    "inputs": [
-      {
-        "name": "file",
-        "type": "file",
-        "required": true,
-        "description": "The audio file to transcribe.",
-        "example": "<file>"
-      },
-      {
-        "name": "model",
-        "type": "string",
-        "required": true,
-        "default": "whisper-1",
-        "description": "The model to use for transcription.",
-        "example": "whisper-1"
-      },
-      {
-        "name": "language",
-        "type": "string",
-        "required": false,
-        "description": "The language of the audio file. Providing language will improve the accuracy of the transcription.",
-        "example": "en"
-      },
-      {
-        "name": "prompt",
-        "type": "string",
-        "required": false,
-        "description": "Optional prompt to guide the model's style or continue a previous audio segment. Should match the language of the audio file.",
-        "example": "The audio is a conversation between two people."
-      },
-      {
-        "name": "response_format",
-        "type": "string",
-        "required": false,
-        "description": "The format of the output, in one of these options: `json`, `text`, `srt`, `verbose_json` or `vtt`.",
-        "example": "text"
-      },
-      {
-        "name": "temperature",
-        "type": "number",
-        "required": false,
-        "default": 0.0,
-        "description": "The temperature to use for the model.",
-        "example": "0.0"
-      }
-    ],
-    "outputs": [
-      {
-        "name": "text",
-        "type": "string",
-        "default": true,
-        "description": "The transcribed text.",
-        "example": "Hello, how are you?"
-      }
-    ]
-  }
-}
-```
-
 ## Inputs
 
 - `file`: The audio file to transcribe.
@@ -91,15 +24,84 @@ Workflow task type to call OpenAI's Audio Transcription API (speech-to-text mode
 
 ```json
 {
-  "id": "transcribe_audio",
+  "name": "TranscribeAudio",
   "type": "OpenAI.Audio.Transcription",
   "inputs": {
-    "file": "{{inputs.file}}",
+    "file": "{{Inputs.File}}",
     "model": "whisper-1",
     "language": "en",
-    "prompt": "The audio is a conversation between two people.",
+    "prompt": "The audio is a conversation between two people",
     "response_format": "text",
     "temperature": 0.2
+  }
+}
+```
+
+This example assumes that the workflow has an input named `File` that contains an audio file.
+
+# Specification
+
+```json
+{
+  "specification": {
+    "type": "OpenAI.Audio.Transcription",
+    "category": "AI",
+    "description": "Call OpenAI's Whisper model to transcribe the audio",
+    "inputs": [
+      {
+        "name": "File",
+        "type": "file",
+        "required": true,
+        "description": "The audio file to transcribe",
+        "example": "<<file>>"
+      },
+      {
+        "name": "Model",
+        "type": "string",
+        "required": true,
+        "default": "whisper-1",
+        "description": "The model to use for transcription",
+        "example": "whisper-1"
+      },
+      {
+        "name": "Language",
+        "type": "string",
+        "required": false,
+        "description": "The language of the audio file. Providing language will improve the accuracy of the transcription",
+        "example": "en"
+      },
+      {
+        "name": "Prompt",
+        "type": "string",
+        "required": false,
+        "description": "Optional prompt to guide the model's style or continue a previous audio segment. Should match the language of the audio file",
+        "example": "The audio is a conversation between two people"
+      },
+      {
+        "name": "ResponseFormat",
+        "type": "string",
+        "required": false,
+        "description": "The format of the output, in one of these options: `json`, `text`, `srt`, `verbose_json` or `vtt`",
+        "example": "text"
+      },
+      {
+        "name": "Temperature",
+        "type": "number",
+        "required": false,
+        "default": 0.0,
+        "description": "The temperature to use for the model",
+        "example": "0.0"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "Text",
+        "type": "string",
+        "default": true,
+        "description": "The transcribed text",
+        "example": "Hello, how are you?"
+      }
+    ]
   }
 }
 ```

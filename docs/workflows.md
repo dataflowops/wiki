@@ -14,16 +14,18 @@ Users can create workflows via the UI or API.
 Workflow creation and execution are two separate steps. Workflows can be created and modified independently.
 
 :::info
+
 For this documentation, we will use the following use-case:
 
 We want to create a workflow to download a webpage, extract the main content, summarize it using OpenAI's GPT model, and return the summary text.
+
 :::
 
 Example request looks like this:
 
 **API Request**:
 
-```
+```bash
 POST /workflows
 ```
 
@@ -31,35 +33,35 @@ POST /workflows
 
 ```json
 {
-  "name": "Webpage Content Summarization Workflow using GPT AI model",
-  "description": "Downloads a webpage, extracts main content, summarizes it using OpenAI's GPT model, and returns the summary text.",
+  "title": "Webpage Content Summarization Workflow using GPT AI model",
+  "description": "Downloads a webpage, extracts main content, summarizes it using OpenAI's GPT model, and returns the summary text",
   "inputs": [
     {
-      "name": "webpage_url",
-      "type": "string",
-      "description": "The URL of the webpage to summarize."
+      "name": "WebpageUrl",
+      "type": "Text",
+      "description": "The URL of the webpage to summarize"
     }
   ],
   "tasks": [
     {
-      "name": "download_webpage",
+      "name": "DownloadWebpage",
       "type": "Web.Download",
       "inputs": {
-        "url": "{{inputs.webpage_url}}"
+        "url": "{{Inputs.WebpageUrl}}"
       }
     },
     {
-      "name": "extract_text",
+      "name": "ExtractText",
       "type": "Web.ExtractText",
       "inputs": {
-        "html_content": "{{tasks.download_webpage.outputs.html_content}}"
+        "html_content": "{{Tasks.DownloadWebpage.Outputs.HtmlContent}}"
       }
     },
     {
-      "name": "summarize_text",
+      "name": "SummarizeText",
       "type": "OpenAI.Text.Summarize",
       "inputs": {
-        "text": "{{tasks.extract_text.outputs.text}}",
+        "text": "{{Tasks.ExtractText.Outputs.Text}}",
         "model": "gpt-3.5-turbo",
         "max_tokens": 150,
         "temperature": 0.7
@@ -68,10 +70,10 @@ POST /workflows
   ],
   "outputs": [
     {
-      "name": "summary_text",
-      "type": "string",
-      "value": "{{tasks.summarize_text.outputs.summary}}",
-      "description": "The summarized text of the webpage content."
+      "name": "SummaryText",
+      "type": "Text",
+      "value": "{{Tasks.SummarizeText.Outputs.Summary}}",
+      "description": "The summarized text of the webpage content"
     }
   ]
 }
@@ -85,8 +87,8 @@ If the workflow is valid, `201 Created` response is returned with the `Workflow 
 
 ```json
 {
-  "workflow_id": "wf-4g7h8j9k",
-  "workflow_version": 1
+  "workflowId": "wf-4g7h8j9k",
+  "workflowVersion": 1
 }
 ```
 
@@ -102,8 +104,8 @@ To start the workflow execution, users need to send the request to the following
 
 **API Request**:
 
-```
-POST /workflows/{workflow_id}/execute
+```bash
+POST /workflows/{{WorkflowId}}/execute
 ```
 
 **Request Body**:
@@ -113,7 +115,7 @@ Most workflows require some input data. Users can provide the input data in the 
 ```json
 {
   "inputs": {
-    "webpage_url": "https://example.com"
+    "WebpageUrl": "https://example.com"
   }
 }
 ```
@@ -126,9 +128,9 @@ Request to the execution API will queue the workflow execution and return the `E
 
 ```json
 {
-  "workflow_id": "wf-4g7h8j9k",
-  "workflow_version": 1,
-  "execution_id": "ex-1a2b3c4d",
+  "workflowId": "wf-4g7h8j9k",
+  "workflowVersion": 1,
+  "executionId": "ex-1a2b3c4d",
   "status": "PENDING"
 }
 ```
@@ -140,28 +142,28 @@ Users can get the execution status using the following API endpoint:
 **API Request**:
 
 ```
-GET /workflows/{workflow_id}/executions/{execution_id}
+GET /workflows/{{WorkflowId}}/executions/{{ExecutionId}}
 ```
 
 **Response Body**:
 
 ```json
 {
-  "execution_id": "ex-1a2b3c4d",
-  "workflow_id": "wf-4g7h8j9k",
-  "workflow_version": 1,
+  "executionId": "ex-1a2b3c4d",
+  "workflowId": "wf-4g7h8j9k",
+  "workflowVersion": 1,
   "status": "RUNNING",
   "tasks": [
     {
-      "name": "download_webpage",
+      "name": "DownloadWebpage",
       "status": "RUNNING"
     },
     {
-      "name": "extract_text",
+      "name": "ExtractText",
       "status": "PENDING"
     },
     {
-      "name": "summarize_text",
+      "name": "SummarizeText",
       "status": "PENDING"
     }
   ]
@@ -175,7 +177,7 @@ Users can list all executions of a workflow using the following API endpoint:
 **API Request**:
 
 ```
-GET /workflows/{workflow_id}/executions
+GET /workflows/{{WorkflowId}}/executions
 ```
 
 **Response Body**:
@@ -184,18 +186,18 @@ GET /workflows/{workflow_id}/executions
 {
   "executions": [
     {
-      "execution_id": "ex-1a2b3c4d",
+      "executionId": "ex-1a2b3c4d",
       "status": "RUNNING",
-      "created_at": "2024-01-01T00:00:00Z",
-      "started_at": "2024-01-01T00:00:00Z",
-      "completed_at": "2024-01-01T00:00:00Z"
+      "createdAt": "2024-01-01T00:00:00Z",
+      "startedAt": "2024-01-01T00:00:00Z",
+      "completedAt": "2024-01-01T00:00:00Z"
     },
     {
-      "execution_id": "ex-7p8q9r0s",
+      "executionId": "ex-7p8q9r0s",
       "status": "COMPLETED",
-      "created_at": "2024-01-01T00:00:00Z",
-      "started_at": "2024-01-01T00:00:00Z",
-      "completed_at": "2024-01-01T00:00:00Z"
+      "createdAt": "2024-01-01T00:00:00Z",
+      "startedAt": "2024-01-01T00:00:00Z",
+      "completedAt": "2024-01-01T00:00:00Z"
     }
   ]
 }
@@ -211,8 +213,8 @@ Users can subscribe to the webhook to get the execution status updates.
 
 **API Request**:
 
-```
-POST /workflows/{workflow_id}/execute
+```bash
+POST /workflows/{{WorkflowId}}/execute
 ```
 
 **Request Body**:
@@ -220,10 +222,10 @@ POST /workflows/{workflow_id}/execute
 ```json
 {
   "inputs": {
-    "webpage_url": "https://example.com"
+    "WebpageUrl": "https://example.com"
   },
   "monitoring": {
-    "webhook_url": "https://example.com/webhook"
+    "webhook": "https://example.com/webhook"
   }
 }
 ```

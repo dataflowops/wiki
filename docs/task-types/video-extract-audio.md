@@ -7,7 +7,29 @@ slug: video-extract-audio
 
 Workflow task type to extract the audio from a video.
 
-# Definition
+## Inputs
+
+- `Video`: The video content to extract the audio from.
+
+## Outputs
+
+- `Audio`: The extracted audio content.
+
+# Example Usage
+
+```json
+{
+  "name": "ExtractAudio",
+  "type": "Video.ExtractAudio",
+  "inputs": {
+    "Video": "{{Inputs.Video}}"
+  }
+}
+```
+
+This example assumes that the workflow has an input named `Video` that contains a video file.
+
+# Specification
 
 ```json
 {
@@ -17,42 +39,22 @@ Workflow task type to extract the audio from a video.
     "description": "Extract the audio from a video",
     "inputs": [
       {
-        "name": "video",
+        "name": "Video",
         "type": "file",
         "required": true,
         "description": "The video content to extract the audio from",
-        "example": "<file>"
+        "example": "<<video file>>"
       }
     ],
     "outputs": [
       {
-        "name": "audio",
+        "name": "Audio",
         "type": "file",
         "default": true,
         "description": "The extracted audio content.",
-        "example": "<file>"
+        "example": "<<audio file>>"
       }
     ]
-  }
-}
-```
-
-## Inputs
-
-- `video`: The video content to extract the audio from.
-
-## Outputs
-
-- `audio`: The extracted audio content.
-
-# Example Usage
-
-```json
-{
-  "id": "extract_audio",
-  "type": "Video.ExtractAudio",
-  "inputs": {
-    "video": "{{inputs.video}}"
   }
 }
 ```
