@@ -37,8 +37,8 @@ Here is the JSON structure of the workflow:
   "description": "This is a dummy workflow to show how the workflow engine works",
   "tasks": [
     {
-      "name": "InputText",
-      "type": "StaticTextInput",
+      "name": "input_text",
+      "type": "static_text_input",
       "inputs": [
         {
           "name": "Text",
@@ -47,22 +47,22 @@ Here is the JSON structure of the workflow:
       ]
     },
     {
-      "name": "ReverseText",
-      "type": "TextOperations.Reverse",
+      "name": "reverse_text",
+      "type": "text_operations.reverse",
       "inputs": [
         {
-          "name": "Text",
-          "value": "{{Tasks.InputText.Outputs.Text}}"
+          "name": "text",
+          "value": "{{tasks.input_text.outputs.text}}"
         }
       ]
     },
     {
-      "name": "EchoText",
-      "type": "Echo",
+      "name": "echo_text",
+      "type": "echo",
       "inputs": [
         {
-          "name": "Text",
-          "value": "{{Tasks.ReverseText.Outputs.Text}}"
+          "name": "text",
+          "value": "{{tasks.reverse_text.outputs.text}}"
         }
       ]
     }

@@ -67,6 +67,13 @@ const docItems = [
     changeDate: "January 1, 2025",
     description: "Learn how to create, execute, and monitor workflows with the Data Flow Platform."
   },
+  {
+    title: "Tasks",
+    link: "/docs/tasks",
+    changeType: ChangeType.Updated,
+    changeDate: "January 16, 2025",
+    description: "Learn how tasks are defined and executed."
+  },
 ];
 
 export default function Home(): JSX.Element {

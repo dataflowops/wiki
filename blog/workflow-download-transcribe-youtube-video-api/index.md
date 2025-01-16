@@ -52,40 +52,40 @@ Here is the initial version of the workflow defined in JSON format:
   "description": "Downloads a YouTube video, extracts audio, transcribes it using OpenAI's Whisper model, and returns the transcription text",
   "inputs": [
     {
-      "name": "YouTubeUrl",
-      "type": "Text",
+      "name": "youtube_url",
+      "type": "text",
       "description": "The URL of the YouTube video to transcribe"
     }
   ],
   "tasks": [
     {
-      "name": "DownloadVideo",
-      "type": "YouTube.Download",
+      "name": "download_video",
+      "type": "youtube.download",
       "inputs": {
-        "youtubeUrl": "{{Inputs.YouTubeUrl}}"
+        "youtube_url": "{{inputs.youtube_url}}"
       }
     },
     {
-      "name": "ExtractAudio",
-      "type": "Video.ExtractAudio",
+      "name": "extract_audio",
+      "type": "video.extract_audio",
       "inputs": {
-        "video": "{{Tasks.DownloadVideo.Outputs.Video}}"
+        "video": "{{tasks.download_video.outputs.video}}"
       }
     },
     {
-      "name": "TranscribeAudio",
-      "type": "OpenAI.Audio.Transcribe",
+      "name": "transcribe_audio",
+      "type": "openai.audio.transcribe",
       "inputs": {
-        "file": "{{Tasks.ExtractAudio.Outputs.Audio}}",
+        "file": "{{tasks.extract_audio.outputs.audio}}",
         "model": "whisper-1"
       }
     }
   ],
   "outputs": [
     {
-      "name": "TranscriptionText",
-      "type": "Text",
-      "value": "{{Tasks.TranscribeAudio.Outputs.Text}}",
+      "name": "transcription_text",
+      "type": "text",
+      "value": "{{tasks.transcribe_audio.outputs.text}}",
       "description": "The transcribed text of the YouTube video's audio"
     }
   ]
@@ -107,7 +107,7 @@ If the workflow is created successfully, you will receive a response with the Wo
 
 ```json
 {
-  "workflowId": "1234567890"
+  "workflow_id": "wf-4g7h8j9k"
 }
 ```
 
@@ -115,12 +115,12 @@ Save the Workflow ID, we will need it to execute the workflow.
 
 ## Execute the Workflow
 
-To execute the workflow, you need to send a POST request to the `/workflows/{{WorkflowId}}/execute` endpoint with the input data for the workflow.
+To execute the workflow, you need to send a POST request to the `/workflows/{{workflow-id}}/executions` endpoint with the input data for the workflow.
 
 **API Request**:
 
 ```bash
-POST /workflows/{{WorkflowId}}/execute
+POST /workflows/{{workflow-id}}/executions
 
 Headers:
 - Content-Type: application/json
@@ -132,7 +132,7 @@ Headers:
 ```json
 {
   "inputs": {
-    "YouTubeUrl": "https://www.youtube.com/watch?v=00000000000"
+    "youtube_url": "https://www.youtube.com/watch?v=00000000000"
   }
 }
 ```
@@ -143,8 +143,8 @@ The CURL version of the request would look like this:
 curl -X POST \
   -H "Content-Type: application/json" \
   -H "X-OpenAI-Key: your_openai_api_key" \
-  -d '{"inputs": {"YouTubeUrl": "https://www.youtube.com/watch?v=00000000000"}, "monitoring": {"webhook": "https://example.com/webhook"}}' \
-  https://api.dataflow.wiki/workflows/{{WorkflowId}}/execute
+  -d '{"inputs": {"youtube_url": "https://www.youtube.com/watch?v=00000000000"}, "monitoring": {"webhook": "https://example.com/webhook"}}' \
+  https://api.dataflow.wiki/workflows/{{workflow-id}}/executions
 ```
 
 Since this workflow uses OpenAI's Whisper model, you must also include your OpenAI API key in the request header.

@@ -8,6 +8,6 @@ Task types are the building blocks of workflows. They are the smallest units of 
 
 ## Supported Task Types
 
-- [Video / Extract Audio](/docs/task-types/video-extract-audio)
-- [YouTube / Download](/docs/task-types/youtube-download)
-- [OpenAI / Audio / Transcription](/docs/task-types/openai-audio-transcription)
+- [Video / Extract Audio (`video.extract_audio`)](/docs/task-types/video-extract-audio)
+- [YouTube / Download (`youtube.download`)](/docs/task-types/youtube-download)
+- [OpenAI / Audio / Transcription (`openai.audio.transcription`)](/docs/task-types/openai-audio-transcription)

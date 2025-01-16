@@ -37,31 +37,31 @@ POST /workflows
   "description": "Downloads a webpage, extracts main content, summarizes it using OpenAI's GPT model, and returns the summary text",
   "inputs": [
     {
-      "name": "WebpageUrl",
-      "type": "Text",
+      "name": "webpage_url",
+      "type": "text",
       "description": "The URL of the webpage to summarize"
     }
   ],
   "tasks": [
     {
-      "name": "DownloadWebpage",
-      "type": "Web.Download",
+      "name": "download_webpage",
+      "type": "web.download",
       "inputs": {
-        "url": "{{Inputs.WebpageUrl}}"
+        "url": "{{inputs.webpage_url}}"
       }
     },
     {
-      "name": "ExtractText",
-      "type": "Web.ExtractText",
+      "name": "extract_text",
+      "type": "web.extract_text",
       "inputs": {
-        "html_content": "{{Tasks.DownloadWebpage.Outputs.HtmlContent}}"
+        "html_content": "{{tasks.download_webpage.outputs.html_content}}"
       }
     },
     {
-      "name": "SummarizeText",
-      "type": "OpenAI.Text.Summarize",
+      "name": "summarize_text",
+      "type": "openai.text.summarize",
       "inputs": {
-        "text": "{{Tasks.ExtractText.Outputs.Text}}",
+        "text": "{{tasks.extract_text.outputs.text}}",
         "model": "gpt-3.5-turbo",
         "max_tokens": 150,
         "temperature": 0.7
@@ -70,9 +70,9 @@ POST /workflows
   ],
   "outputs": [
     {
-      "name": "SummaryText",
-      "type": "Text",
-      "value": "{{Tasks.SummarizeText.Outputs.Summary}}",
+      "name": "summary_text",
+      "type": "text",
+      "value": "{{tasks.summarize_text.outputs.summary}}",
       "description": "The summarized text of the webpage content"
     }
   ]
@@ -87,8 +87,7 @@ If the workflow is valid, `201 Created` response is returned with the `Workflow 
 
 ```json
 {
-  "workflowId": "wf-4g7h8j9k",
-  "workflowVersion": 1
+  "workflow_id": "wf-4g7h8j9k"
 }
 ```
 
@@ -105,7 +104,7 @@ To start the workflow execution, users need to send the request to the following
 **API Request**:
 
 ```bash
-POST /workflows/{{WorkflowId}}/execute
+POST /workflows/{{workflow-id}}/executions
 ```
 
 **Request Body**:
@@ -115,7 +114,7 @@ Most workflows require some input data. Users can provide the input data in the 
 ```json
 {
   "inputs": {
-    "WebpageUrl": "https://example.com"
+    "webpage_url": "https://example.com"
   }
 }
 ```
@@ -128,9 +127,9 @@ Request to the execution API will queue the workflow execution and return the `E
 
 ```json
 {
-  "workflowId": "wf-4g7h8j9k",
-  "workflowVersion": 1,
-  "executionId": "ex-1a2b3c4d",
+  "workflow_execution_id": "we-1a2b3c4d",
+  "workflow_id": "wf-4g7h8j9k",
+  "workflow_version": 1,
   "status": "PENDING"
 }
 ```
@@ -142,28 +141,28 @@ Users can get the execution status using the following API endpoint:
 **API Request**:
 
 ```
-GET /workflows/{{WorkflowId}}/executions/{{ExecutionId}}
+GET /workflows/{{workflow-id}}/executions/{{workflow-execution-id}}
 ```
 
 **Response Body**:
 
 ```json
 {
-  "executionId": "ex-1a2b3c4d",
-  "workflowId": "wf-4g7h8j9k",
-  "workflowVersion": 1,
+  "workflow_execution_id": "we-1a2b3c4d",
+  "workflow_id": "wf-4g7h8j9k",
+  "workflow_version": 1,
   "status": "RUNNING",
   "tasks": [
     {
-      "name": "DownloadWebpage",
+      "name": "download_webpage",
       "status": "RUNNING"
     },
     {
-      "name": "ExtractText",
+      "name": "extract_text",
       "status": "PENDING"
     },
     {
-      "name": "SummarizeText",
+      "name": "summarize_text",
       "status": "PENDING"
     }
   ]
@@ -176,8 +175,8 @@ Users can list all executions of a workflow using the following API endpoint:
 
 **API Request**:
 
-```
-GET /workflows/{{WorkflowId}}/executions
+```bash
+GET /workflows/{{workflow-id}}/executions
 ```
 
 **Response Body**:
@@ -205,7 +204,7 @@ GET /workflows/{{WorkflowId}}/executions
 
 ## Workflow Monitoring
 
-It is possible to monitor the workflow execution using the `Execution ID`. Currently, we support monitoring via the `Execution ID` in the UI and via the webhook. In the future, we plan to provide more advanced monitoring capabilities such as monitoring the execution progress, monitoring the execution logs, and monitoring the execution metrics.
+It is possible to monitor the workflow execution using the `Workflow Execution ID`. Currently, we support monitoring via the `Workflow Execution ID` in the UI and via the webhook. In the future, we plan to provide more advanced monitoring capabilities such as monitoring the execution progress, monitoring the execution logs, and monitoring the execution metrics.
 
 ### Webhook
 
@@ -214,7 +213,7 @@ Users can subscribe to the webhook to get the execution status updates.
 **API Request**:
 
 ```bash
-POST /workflows/{{WorkflowId}}/execute
+POST /workflows/{{workflow-id}}/executions
 ```
 
 **Request Body**:
@@ -222,7 +221,7 @@ POST /workflows/{{WorkflowId}}/execute
 ```json
 {
   "inputs": {
-    "WebpageUrl": "https://example.com"
+    "webpage_url": "https://example.com"
   },
   "monitoring": {
     "webhook": "https://example.com/webhook"

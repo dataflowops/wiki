@@ -9,20 +9,20 @@ Workflow task type to download a YouTube video by its URL.
 
 ## Inputs
 
-- `Url`: The URL of the YouTube video to download.
+- `url`: The URL of the YouTube video to download (**required input**).
 
 ## Outputs
 
-- `Video`: The video object.
+- `video`: The downloaded video content (**default output**).
 
 # Example Usage
 
 ```json
 {
-  "name": "DownloadVideo",
-  "type": "YouTube.Download",
+  "name": "download_video",
+  "type": "youtube.download",
   "inputs": {
-    "Url": "https://www.youtube.com/watch?v=00000000000"
+    "url": "https://www.youtube.com/watch?v=00000000000"
   }
 }
 ```
@@ -32,13 +32,13 @@ Workflow task type to download a YouTube video by its URL.
 ```json
 {
   "specification": {
-    "type": "YouTube.Download",
-    "category": "YouTube",
+    "type": "youtube.download",
+    "category": "youtube",
     "description": "Download a video from YouTube by its URL",
     "inputs": [
       {
-        "name": "Url",
-        "type": "string",
+        "name": "url",
+        "type": "text",
         "required": true,
         "description": "The URL of the YouTube video to download",
         "example": "https://www.youtube.com/watch?v=00000000000"
@@ -46,7 +46,7 @@ Workflow task type to download a YouTube video by its URL.
     ],
     "outputs": [
       {
-        "name": "Video",
+        "name": "video",
         "type": "file",
         "default": true,
         "description": "The downloaded video content",

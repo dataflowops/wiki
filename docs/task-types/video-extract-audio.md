@@ -9,37 +9,37 @@ Workflow task type to extract the audio from a video.
 
 ## Inputs
 
-- `Video`: The video content to extract the audio from.
+- `video`: The video content to extract the audio from (**required input**).
 
 ## Outputs
 
-- `Audio`: The extracted audio content.
+- `audio`: The extracted audio content (**default output**).
 
 # Example Usage
 
 ```json
 {
-  "name": "ExtractAudio",
-  "type": "Video.ExtractAudio",
+  "name": "extract_audio",
+  "type": "video.extract_audio",
   "inputs": {
-    "Video": "{{Inputs.Video}}"
+    "video": "{{inputs.video}}"
   }
 }
 ```
 
-This example assumes that the workflow has an input named `Video` that contains a video file.
+This example assumes that the workflow has an input named `video` that contains a video file.
 
 # Specification
 
 ```json
 {
   "specification": {
-    "type": "Video.ExtractAudio",
-    "category": "Video",
+    "type": "video.extract_audio",
+    "category": "video",
     "description": "Extract the audio from a video",
     "inputs": [
       {
-        "name": "Video",
+        "name": "video",
         "type": "file",
         "required": true,
         "description": "The video content to extract the audio from",
@@ -48,7 +48,7 @@ This example assumes that the workflow has an input named `Video` that contains 
     ],
     "outputs": [
       {
-        "name": "Audio",
+        "name": "audio",
         "type": "file",
         "default": true,
         "description": "The extracted audio content.",

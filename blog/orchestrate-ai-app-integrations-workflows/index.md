@@ -23,194 +23,137 @@ Learn how to create automated workflows that combine AI models, application inte
 
 Before diving into workflow creation, let's understand the key components:
 
-1. **Workflow Engine**: Based on Directed Acyclic Graphs (DAGs), similar to Apache Airflow
-2. **Node Executors**: Runtime environment for processing workflow steps
-3. **Data Converters**: Handlers for data transformation between different formats
-4. **Integration Layer**: Connectors for AI models and external applications
-5. **Agent Publisher**: System for exposing workflows as AI agents
+1. **Workflow Management**: Create, manage, and monitor workflows.
+2. **Workflow Execution**: Runtime environment for processing workflow. Based on Directed Acyclic Graphs (DAGs), similar to Apache Airflow.
+3. **Data Converters**: Handlers for data transformation between different formats.
+4. **Data Sources**: Connectors for data sources.
+5. **Data Operations**: Extract, transform, and load data.
 
 ## Creating Your First Workflow
 
-### Step 1: Design the Workflow Structure
+### Design the Workflow Structure
 
-Access the Workflow Management Dashboard and create a new workflow:
+The first step is to design the workflow structure.
 
-1. Navigate to `Workflows > Create New`
-2. Define workflow metadata: `json
+The workflow structure is a directed acyclic graph (DAG) that defines the workflow's nodes and their connections. We will start with a simple workflow that is sequence of tasks executed one after the other.
 
-```json
-{
-  "name": "customer_data_processor",
-  "description": "Process customer data with AI analysis",
-  "schedule": "0 0 * * *" // Daily execution
-}
-```
+For this example, we will create a workflow that Converts Text to Speech (TTS).
 
-### Step 2: Add Data Source Integration
+### Implementing the Text-to-Speech Workflow
 
-Configure your data source node:
-
-1. Drag a Source node from the toolbox
-2. Configure the connection: `json
+Let's create a workflow that converts text to speech using OpenAI's API. Here's the workflow definition:
 
 ```json
 {
-  "type": "postgres",
-  "connection": {
-    "host": "db.example.com",
-    "port": 5432,
-    "database": "customers"
-  },
-  "query": "SELECT * FROM customer_interactions"
-}
-```
-
-### Step 3: Implement ETL Process
-
-Add transformation nodes to clean and prepare your data:
-
-```python
-def transform_customer_data(data):
-    return {
-        'customer_id': data['id'],
-        'sentiment_input': f"{data['subject']} {data['message']}",
-        'interaction_date': data['created_at'].isoformat()
+  "title": "Text to Speech Workflow",
+  "description": "Converts input text to speech using OpenAI's TTS model",
+  "inputs": [
+    {
+      "name": "text",
+      "type": "text",
+      "description": "The text to convert to speech"
+    },
+    {
+      "name": "voice",
+      "type": "text",
+      "description": "The voice to use (alloy, echo, fable, onyx, nova, or shimmer)",
+      "default": "alloy"
     }
-```
-
-### Step 4: Integrate AI Processing
-
-Add an AI node for sentiment analysis:
-
-```json
-{
-  "node_type": "ai_processor",
-  "model": "sentiment_analyzer",
-  "input_mapping": {
-    "text": "sentiment_input"
-  },
-  "output_mapping": {
-    "sentiment_score": "customer_sentiment",
-    "sentiment_label": "sentiment_category"
-  }
+  ],
+  "tasks": [
+    {
+      "name": "text_to_speech",
+      "type": "openai.audio.tts",
+      "inputs": {
+        "text": "{{inputs.text}}",
+        "voice": "{{inputs.voice}}",
+        "model": "tts-1"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "name": "audio_file",
+      "type": "file",
+      "value": "{{tasks.text_to_speech.outputs.audio}}",
+      "description": "The generated audio file"
+    }
+  ]
 }
 ```
 
-### Step 5: Configure Output Integration
+### Executing the Workflow
 
-Set up the destination for processed data:
-
-```json
-{
-  "node_type": "api_destination",
-  "endpoint": "https://crm.example.com/api/v1/customers",
-  "method": "POST",
-  "headers": {
-    "Authorization": "Bearer ${CRM_API_KEY}"
-  }
-}
-```
-
-## Publishing as an AI Agent
-
-Once your workflow is tested, you can publish it as an AI agent:
-
-1. Navigate to `Workflows > [Your Workflow] > Publish`
-2. Configure agent settings:
-
-```json
-{
-  "agent_name": "CustomerInsightBot",
-  "description": "AI-powered customer interaction analyzer",
-  "access_type": "api", // or "web_form"
-  "input_schema": {
-    "customer_id": "string",
-    "interaction_text": "string"
-  }
-}
-```
-
-### Accessing Your AI Agent
-
-#### Via API
+Once you've created the workflow, you can execute it using the API:
 
 ```bash
-curl -X POST https://api.dataflow.example.com/agents/CustomerInsightBot \
-  -H "Authorization: Bearer ${API_KEY}" \
+# First, create the workflow
+curl -X POST https://api.dataflow.wiki/workflows \
+  -H "Content-Type: application/json" \
+  -d @workflow.json
+
+# Execute the workflow with input
+curl -X POST https://api.dataflow.wiki/workflows/wf-123/executions \
+  -H "Content-Type: application/json" \
   -d '{
-    "customer_id": "12345",
-    "interaction_text": "Great service, very satisfied!"
+    "inputs": {
+      "text": "Hello world! This is a test of the text to speech system.",
+      "voice": "nova"
+    }
   }'
 ```
 
-#### Via Web Form
+## Monitoring and Error Handling
 
-Access your agent through the provided web interface at:
+### Setting Up Webhooks
 
-```
-https://dataflow.example.com/agents/CustomerInsightBot/form
-```
-
-## Monitoring and Maintenance
-
-Monitor your workflow's performance through:
-
-1. Real-time execution logs
-2. Performance metrics dashboard
-3. Error tracking and alerting
-4. Data quality monitoring
-
-### Monitoring Dashboard
+To monitor workflow execution, you can configure webhooks:
 
 ```json
 {
-  "metrics": {
-    "execution_time": "avg_ms",
-    "success_rate": "percentage",
-    "error_rate": "percentage",
-    "data_processed": "records_count"
-  },
-  "alerts": {
-    "error_threshold": 0.05,
-    "latency_threshold_ms": 1000,
-    "notification_channels": ["email", "slack"]
+  "monitoring": {
+    "webhook": {
+      "url": "https://your-server.com/webhook",
+      "events": ["started", "completed", "failed"]
+    }
   }
 }
 ```
 
-## Best Practices
+### Error Handling Strategies
 
-- Use environment variables for sensitive configuration
-- Implement error handling at each node
-- Set up monitoring and alerting
-- Document data schemas and transformations
-- Version control your workflow configurations
+1. **Retry Logic**: Configure retry attempts for failed tasks:
 
-### Error Handling Example
-
-```python
-def process_node(input_data):
-    try:
-        # Process data
-        result = transform_data(input_data)
-
-        # Validate output
-        if not validate_output(result):
-            raise ValueError("Output validation failed")
-
-        return result
-    except Exception as e:
-        log_error(e)
-        send_alert("Node processing failed", str(e))
-        raise
+```json
+{
+  "name": "api_call",
+  "type": "http.request",
+  "retry": {
+    "attempts": 3,
+    "delay": 5
+  }
+}
 ```
 
-## Next Steps
+2. **Fallback Tasks**: Define alternative tasks to execute on failure:
 
-- Explore advanced workflow patterns
-- Implement custom data transformations
-- Integrate additional AI models
-- Set up workflow testing
-- Configure advanced scheduling
+```json
+{
+  "name": "transcribe",
+  "type": "openai.audio.transcription",
+  "fallback": {
+    "task": "whisper.transcribe",
+    "inputs": {
+      "audio": "{{tasks.extract_audio.outputs.audio}}"
+    }
+  }
+}
+```
 
-For detailed documentation and examples, visit our [Documentation Portal](/docs).
+## Conclusion
+
+The Data Flow Platform provides a powerful framework for building AI-powered workflows. By combining different task types and using features like parallel execution, conditional logic, and error handling, you can create sophisticated automation solutions that integrate various AI services and data processing steps.
+
+Start small with simple workflows and gradually build more complex solutions as you become familiar with the platform's capabilities. Remember to implement proper monitoring and error handling to ensure your workflows run reliably in production.
+
+For more examples and detailed documentation, visit our [documentation site](/docs).

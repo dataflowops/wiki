@@ -9,8 +9,8 @@ Workflow task type to call OpenAI's Audio Transcription API (speech-to-text mode
 
 ## Inputs
 
-- `file`: The audio file to transcribe.
-- `model`: The model to use for transcription.
+- `file`: The audio file to transcribe (**required input**).
+- `model`: The model to use for transcription (**required input**).
 - `language`: The language of the audio file. Providing language will improve the accuracy of the transcription. Must be in [ISO 639-1](https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes) format.
 - `prompt`: Optional prompt to guide the model's style or continue a previous audio segment. Should match the language of the audio file.
 - `response_format`: The format of the output, in one of these options: `json`, `text`, `srt`, `verbose_json` or `vtt`.
@@ -18,16 +18,16 @@ Workflow task type to call OpenAI's Audio Transcription API (speech-to-text mode
 
 ## Outputs
 
-- `text`: The transcribed text.
+- `text`: The transcribed text (**default output**).
 
 # Example Usage
 
 ```json
 {
-  "name": "TranscribeAudio",
-  "type": "OpenAI.Audio.Transcription",
+  "name": "transcribe_audio",
+  "type": "openai.audio.transcription",
   "inputs": {
-    "file": "{{Inputs.File}}",
+    "file": "{{inputs.file}}",
     "model": "whisper-1",
     "language": "en",
     "prompt": "The audio is a conversation between two people",
@@ -37,55 +37,55 @@ Workflow task type to call OpenAI's Audio Transcription API (speech-to-text mode
 }
 ```
 
-This example assumes that the workflow has an input named `File` that contains an audio file.
+This example assumes that the workflow has an input named `file` that contains an audio file.
 
 # Specification
 
 ```json
 {
   "specification": {
-    "type": "OpenAI.Audio.Transcription",
-    "category": "AI",
+    "type": "openai.audio.transcription",
+    "category": "ai",
     "description": "Call OpenAI's Whisper model to transcribe the audio",
     "inputs": [
       {
-        "name": "File",
+        "name": "file",
         "type": "file",
         "required": true,
         "description": "The audio file to transcribe",
         "example": "<<file>>"
       },
       {
-        "name": "Model",
-        "type": "string",
+        "name": "model",
+        "type": "text",
         "required": true,
         "default": "whisper-1",
         "description": "The model to use for transcription",
         "example": "whisper-1"
       },
       {
-        "name": "Language",
-        "type": "string",
+        "name": "language",
+        "type": "text",
         "required": false,
         "description": "The language of the audio file. Providing language will improve the accuracy of the transcription",
         "example": "en"
       },
       {
-        "name": "Prompt",
-        "type": "string",
+        "name": "prompt",
+        "type": "text",
         "required": false,
         "description": "Optional prompt to guide the model's style or continue a previous audio segment. Should match the language of the audio file",
         "example": "The audio is a conversation between two people"
       },
       {
-        "name": "ResponseFormat",
-        "type": "string",
+        "name": "response_format",
+        "type": "text",
         "required": false,
         "description": "The format of the output, in one of these options: `json`, `text`, `srt`, `verbose_json` or `vtt`",
         "example": "text"
       },
       {
-        "name": "Temperature",
+        "name": "temperature",
         "type": "number",
         "required": false,
         "default": 0.0,
@@ -95,8 +95,8 @@ This example assumes that the workflow has an input named `File` that contains a
     ],
     "outputs": [
       {
-        "name": "Text",
-        "type": "string",
+        "name": "text",
+        "type": "text",
         "default": true,
         "description": "The transcribed text",
         "example": "Hello, how are you?"
