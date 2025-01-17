@@ -92,14 +92,16 @@ If the workflow is valid, `201 Created` response is returned with the `Workflow 
 ```
 
 :::info
-Created workflows are not executed. Returned `Workflow ID` is used to execute the workflow with the separate API call.
+
+Created workflows are not executed. Returned `Workflow ID` is used to execute the workflow via the Workflow Execution API.
+
 :::
 
 ## Workflow Execution
 
-Users can start the workflow execution using `Workflow ID`. One workflow can be executed multiple times and each execution will be assigned a unique `Execution ID`.
+Users can start the workflow execution using `Workflow ID`. One workflow can be executed multiple times and each execution will be assigned a unique `Workflow Execution ID`.
 
-To start the workflow execution, users need to send the request to the following API endpoint:
+To start the workflow execution, users need to send a request to the following API endpoint:
 
 **API Request**:
 
@@ -121,7 +123,7 @@ Most workflows require some input data. Users can provide the input data in the 
 
 Before the workflow execution starts, the input data is validated against the workflow input schema. If the input data is invalid, the execution will be rejected with the `400 Bad Request` response.
 
-Request to the execution API will queue the workflow execution and return the `Execution ID`.
+Request to the execution API will queue the workflow execution and return a `Workflow Execution ID`.
 
 **Response Body**:
 
@@ -133,6 +135,12 @@ Request to the execution API will queue the workflow execution and return the `E
   "status": "PENDING"
 }
 ```
+
+:::info
+
+Each execution request creates a new snapshot of the workflow. This snapshot is used to execute the workflow. This prevents the workflow from being modified while it is being executed. Workflow Version is included in the response to indicate the version of the workflow that is being executed.
+
+:::
 
 ### Execution Status
 
@@ -171,7 +179,7 @@ GET /workflows/{{workflow-id}}/executions/{{workflow-execution-id}}
 
 ### List Executions
 
-Users can list all executions of a workflow using the following API endpoint:
+Users can list all executions for a workflow using the following API endpoint:
 
 **API Request**:
 
@@ -185,18 +193,18 @@ GET /workflows/{{workflow-id}}/executions
 {
   "executions": [
     {
-      "executionId": "ex-1a2b3c4d",
+      "workflow_execution_id": "we-1a2b3c4d",
       "status": "RUNNING",
-      "createdAt": "2024-01-01T00:00:00Z",
-      "startedAt": "2024-01-01T00:00:00Z",
-      "completedAt": "2024-01-01T00:00:00Z"
+      "created_at": "2024-01-01T00:00:00Z",
+      "started_at": "2024-01-01T00:00:00Z",
+      "completed_at": "2024-01-01T00:00:00Z"
     },
     {
-      "executionId": "ex-7p8q9r0s",
+      "workflow_execution_id": "we-7p8q9r0s",
       "status": "COMPLETED",
-      "createdAt": "2024-01-01T00:00:00Z",
-      "startedAt": "2024-01-01T00:00:00Z",
-      "completedAt": "2024-01-01T00:00:00Z"
+      "created_at": "2024-01-01T00:00:00Z",
+      "started_at": "2024-01-01T00:00:00Z",
+      "completed_at": "2024-01-01T00:00:00Z"
     }
   ]
 }
