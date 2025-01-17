@@ -143,7 +143,7 @@ The CURL version of the request would look like this:
 curl -X POST \
   -H "Content-Type: application/json" \
   -H "X-OpenAI-Key: your_openai_api_key" \
-  -d '{"inputs": {"youtube_url": "https://www.youtube.com/watch?v=00000000000"}, "monitoring": {"webhook": "https://example.com/webhook"}}' \
+  -d '{"inputs": {"youtube_url": "https://www.youtube.com/watch?v=00000000000"}, "monitoring": {"webhook_url": "https://example.com/webhook"}}' \
   https://api.dataflow.wiki/workflows/{{workflow-id}}/executions
 ```
 

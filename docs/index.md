@@ -216,7 +216,7 @@ POST /workflows/{{workflow-id}}/executions
     "webpage_url": "https://example.com"
   },
   "monitoring": {
-    "webhook": "https://example.com/webhook"
+    "webhook_url": "https://example.com/webhook"
   }
 }
 ```

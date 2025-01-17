@@ -112,10 +112,7 @@ To monitor workflow execution, you can configure webhooks:
 ```json
 {
   "monitoring": {
-    "webhook": {
-      "url": "https://your-server.com/webhook",
-      "events": ["started", "completed", "failed"]
-    }
+    "webhook_url": "https://your-server.com/webhook"
   }
 }
 ```
