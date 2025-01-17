@@ -109,3 +109,8 @@ Required inputs are inputs that must be provided as part of the workflow executi
 #### Default Outputs
 
 Default outputs are passed to the next task in the workflow by default. If their name is the same as the task's output name, they can be omitted in the task definition.
+
+## Next Steps
+
+- Learn about [Task Types](/docs/task-types)
+- Check out example workflows in our [Blog](/blog)

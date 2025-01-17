@@ -5,236 +5,195 @@ sidebar_position: 2
 
 # Workflows
 
-Workflows are the main execution unit of the Data Flow Platform. They are the sequences of tasks that are executed in order.
+Workflows are the main execution unit of the Data Flow Platform. They are sequences of tasks that are executed in order to achieve a specific automation goal.
 
-## Workflow
+## Workflow Definition
 
-Users can create workflows via the UI or API.
+A workflow definition is a JSON object that specifies:
 
-Workflow creation and execution are two separate steps. Workflows can be created and modified independently.
+- Basic workflow metadata (title, description)
+- Input parameters
+- Sequence of tasks to execute
+- Output mappings
 
-:::info
-
-For this documentation, we will use the following use-case:
-
-We want to create a workflow to download a webpage, extract the main content, summarize it using OpenAI's GPT model, and return the summary text.
-
-:::
-
-Example request looks like this:
-
-**API Request**:
-
-```bash
-POST /workflows
-```
-
-**Request Body**:
+Here's an example workflow definition:
 
 ```json
 {
-  "title": "Webpage Content Summarization Workflow using GPT AI model",
-  "description": "Downloads a webpage, extracts main content, summarizes it using OpenAI's GPT model, and returns the summary text",
+  "title": "YouTube Video Transcription",
+  "description": "Downloads a YouTube video and transcribes its audio content",
   "inputs": [
     {
-      "name": "webpage_url",
+      "name": "video_url",
       "type": "text",
-      "description": "The URL of the webpage to summarize"
+      "description": "YouTube video URL to process"
     }
   ],
   "tasks": [
     {
-      "name": "download_webpage",
-      "type": "web.download",
+      "name": "download_video",
+      "type": "youtube.download",
       "inputs": {
-        "url": "{{inputs.webpage_url}}"
+        "url": "{{inputs.video_url}}"
       }
     },
     {
-      "name": "extract_text",
-      "type": "web.extract_text",
+      "name": "extract_audio",
+      "type": "video.extract_audio",
       "inputs": {
-        "html_content": "{{tasks.download_webpage.outputs.html_content}}"
+        "video": "{{tasks.download_video.outputs.video}}"
       }
     },
     {
-      "name": "summarize_text",
-      "type": "openai.text.summarize",
+      "name": "transcribe",
+      "type": "openai.audio.transcription",
       "inputs": {
-        "text": "{{tasks.extract_text.outputs.text}}",
-        "model": "gpt-3.5-turbo",
-        "max_tokens": 150,
-        "temperature": 0.7
+        "audio": "{{tasks.extract_audio.outputs.audio}}"
       }
     }
   ],
   "outputs": [
     {
-      "name": "summary_text",
+      "name": "transcription",
       "type": "text",
-      "value": "{{tasks.summarize_text.outputs.summary}}",
-      "description": "The summarized text of the webpage content"
+      "value": "{{tasks.transcribe.outputs.text}}"
     }
   ]
 }
 ```
 
-Each request is validated against the scheme. Tasks are validated with respect to the input and output types.
+### Workflow Components
 
-If the workflow is valid, `201 Created` response is returned with the `Workflow ID`.
+#### Inputs
 
-**Response Body**:
+The `inputs` section defines the parameters that must be provided when executing the workflow. Each input has:
 
-```json
-{
-  "workflow_id": "wf-4g7h8j9k"
-}
-```
+- `name`: Unique identifier for the input
+- `type`: Data type (`text`, `number`, `boolean`, or `file`)
+- `description`: Human-readable description
+- `required`: Boolean indicating if the input is mandatory (defaults to `true`)
+- `default`: Optional default value if none is provided
 
-:::info
+#### Tasks
 
-Created workflows are not executed. Returned `Workflow ID` is used to execute the workflow via the Workflow Execution API.
+The `tasks` array defines the sequence of operations to perform. Each task has:
 
-:::
+- `name`: Unique identifier for the task within the workflow
+- `type`: The task type to execute (must be a supported task type)
+- `inputs`: Mapping of task input parameters
+- `outputs`: Optional mapping of task outputs (defaults can be used)
+- `condition`: Optional expression determining if task should execute
+- `retry`: Optional retry configuration for failed tasks
+
+Tasks are executed sequentially by default. The platform ensures each task's dependencies (inputs) are available before execution.
+
+#### Outputs
+
+The `outputs` section maps internal workflow values to the final workflow outputs. Each output has:
+
+- `name`: Identifier for the output value
+- `type`: Data type of the output
+- `value`: Expression referencing internal workflow values
+- `description`: Optional human-readable description
+
+### Variable References
+
+Workflows use a templating syntax to reference values:
+
+- `{{inputs.NAME}}` - Reference workflow input
+- `{{tasks.TASK_NAME.outputs.OUTPUT_NAME}}` - Reference task output
+- `{{outputs.NAME}}` - Reference workflow output
 
 ## Workflow Execution
 
-Users can start the workflow execution using `Workflow ID`. One workflow can be executed multiple times and each execution will be assigned a unique `Workflow Execution ID`.
+Workflows are executed by making a POST request to the execution API endpoint with the required input parameters. The platform:
 
-To start the workflow execution, users need to send a request to the following API endpoint:
+1. Validates the input parameters
+2. Creates an execution snapshot
+3. Executes tasks sequentially
+4. Maps outputs
+5. Returns execution results
 
-**API Request**:
+### Execution States
 
-```bash
-POST /workflows/{{workflow-id}}/executions
-```
+A workflow execution can be in one of these states:
 
-**Request Body**:
+- `PENDING`: Execution is queued
+- `RUNNING`: Tasks are being executed
+- `COMPLETED`: All tasks completed successfully
+- `FAILED`: One or more tasks failed
+- `CANCELLED`: Execution was cancelled by user
 
-Most workflows require some input data. Users can provide the input data in the request body.
+### Error Handling
+
+Tasks can be configured with retry policies:
 
 ```json
 {
-  "inputs": {
-    "webpage_url": "https://example.com"
+  "name": "risky_task",
+  "type": "some.task",
+  "retry": {
+    "attempts": 3,
+    "delay": 5,
+    "multiplier": 2
   }
 }
 ```
 
-Before the workflow execution starts, the input data is validated against the workflow input schema. If the input data is invalid, the execution will be rejected with the `400 Bad Request` response.
+This will retry failed tasks up to 3 times with exponential backoff.
 
-Request to the execution API will queue the workflow execution and return a `Workflow Execution ID`.
+### Conditional Execution
 
-**Response Body**:
-
-```json
-{
-  "workflow_execution_id": "we-1a2b3c4d",
-  "workflow_id": "wf-4g7h8j9k",
-  "workflow_version": 1,
-  "status": "PENDING"
-}
-```
-
-:::info
-
-Each execution request creates a new snapshot of the workflow. This snapshot is used to execute the workflow. This prevents the workflow from being modified while it is being executed. Workflow Version is included in the response to indicate the version of the workflow that is being executed.
-
-:::
-
-### Execution Status
-
-Users can get the execution status using the following API endpoint:
-
-**API Request**:
-
-```
-GET /workflows/{{workflow-id}}/executions/{{workflow-execution-id}}
-```
-
-**Response Body**:
+Tasks can include conditions to control their execution:
 
 ```json
 {
-  "workflow_execution_id": "we-1a2b3c4d",
-  "workflow_id": "wf-4g7h8j9k",
-  "workflow_version": 1,
-  "status": "RUNNING",
-  "tasks": [
-    {
-      "name": "download_webpage",
-      "status": "RUNNING"
-    },
-    {
-      "name": "extract_text",
-      "status": "PENDING"
-    },
-    {
-      "name": "summarize_text",
-      "status": "PENDING"
-    }
-  ]
+  "name": "optional_task",
+  "type": "some.task",
+  "condition": "{{tasks.previous_task.outputs.should_continue}}"
 }
 ```
 
-### List Executions
+The task will only execute if the condition evaluates to true.
 
-Users can list all executions for a workflow using the following API endpoint:
+## Workflow Management
 
-**API Request**:
+### Versioning
 
-```bash
-GET /workflows/{{workflow-id}}/executions
-```
+Each workflow modification creates a new version. The version history is preserved and can be accessed via the API. Executions always use the workflow version that was current when the execution started.
 
-**Response Body**:
+### Monitoring
 
-```json
-{
-  "executions": [
-    {
-      "workflow_execution_id": "we-1a2b3c4d",
-      "status": "RUNNING",
-      "created_at": "2024-01-01T00:00:00Z",
-      "started_at": "2024-01-01T00:00:00Z",
-      "completed_at": "2024-01-01T00:00:00Z"
-    },
-    {
-      "workflow_execution_id": "we-7p8q9r0s",
-      "status": "COMPLETED",
-      "created_at": "2024-01-01T00:00:00Z",
-      "started_at": "2024-01-01T00:00:00Z",
-      "completed_at": "2024-01-01T00:00:00Z"
-    }
-  ]
-}
-```
+Workflow execution can be monitored through:
 
-## Workflow Monitoring
+- API polling
+- Webhooks
+- Web UI dashboard
 
-It is possible to monitor the workflow execution using the `Workflow Execution ID`. Currently, we support monitoring via the `Workflow Execution ID` in the UI and via the webhook. In the future, we plan to provide more advanced monitoring capabilities such as monitoring the execution progress, monitoring the execution logs, and monitoring the execution metrics.
+The monitoring data includes:
 
-### Webhook
+- Overall execution status
+- Individual task statuses
+- Execution time and resource usage
+- Error messages and stack traces
+- Output values
 
-Users can subscribe to the webhook to get the execution status updates.
+## Best Practices
 
-**API Request**:
+1. **Input Validation**: Define clear input parameters with appropriate types and validation rules
 
-```bash
-POST /workflows/{{workflow-id}}/executions
-```
+2. **Error Handling**: Configure retry policies for unreliable tasks
 
-**Request Body**:
+3. **Modularity**: Break complex workflows into smaller, reusable components
 
-```json
-{
-  "inputs": {
-    "webpage_url": "https://example.com"
-  },
-  "monitoring": {
-    "webhook": "https://example.com/webhook"
-  }
-}
-```
+4. **Monitoring**: Set up appropriate monitoring and alerting for critical workflows
 
-Data Flow Platform will send the execution status updates to the provided webhook URL.
+5. **Documentation**: Include clear descriptions for inputs, outputs, and expected behavior
+
+6. **Testing**: Test workflows with various input combinations before production use
+
+## Next Steps
+
+- Learn about [Tasks](/docs/tasks) configuration
+- Explore available [Task Types](/docs/task-types)
+- Check out example workflows in our [Blog](/blog)
