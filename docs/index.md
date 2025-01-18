@@ -46,7 +46,7 @@ POST https://api.dataflow.wiki/workflows
   "tasks": [
     {
       "name": "text_to_speech",
-      "type": "openai.audio.tts",
+      "type": "openai.audio.text_to_speech",
       "inputs": {
         "text": "{{inputs.text}}",
         "voice": "alloy"

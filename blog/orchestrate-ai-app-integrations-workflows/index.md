@@ -46,7 +46,7 @@ Let's create a workflow that converts text to speech using OpenAI's API. Here's 
 ```json
 {
   "title": "Text to Speech Workflow",
-  "description": "Converts input text to speech using OpenAI's TTS model",
+  "description": "Converts input text to speech using OpenAI's Text-to-Speech (TTS) model",
   "inputs": [
     {
       "name": "text",
@@ -63,7 +63,7 @@ Let's create a workflow that converts text to speech using OpenAI's API. Here's 
   "tasks": [
     {
       "name": "text_to_speech",
-      "type": "openai.audio.tts",
+      "type": "openai.audio.text_to_speech",
       "inputs": {
         "text": "{{inputs.text}}",
         "voice": "{{inputs.voice}}",
