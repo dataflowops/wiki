@@ -74,6 +74,13 @@ const docItems = [
     changeDate: "January 16, 2025",
     description: "Learn how tasks are defined and executed."
   },
+  {
+    title: "New Web and Text Task Types",
+    link: "/docs/task-types/web-download",
+    changeType: ChangeType.Added,
+    changeDate: "January 31, 2025",
+    description: "Learn how to use the new web and text task types to create workflows."
+  }
 ];
 
 export default function Home(): JSX.Element {
