@@ -76,17 +76,82 @@
   flex-grow: 1;
 }
 
+.platformSection {
+  padding: 4rem 0;
+  background: linear-gradient(180deg, var(--ifm-background-color) 0%, var(--ifm-background-surface-color) 100%);
+}
+
+.platformSectionTitle {
+  text-align: center;
+  margin-bottom: 3rem;
+  font-size: 2.5rem;
+  color: var(--ifm-color-primary);
+  font-weight: 700;
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+.platformSectionTitle::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: var(--ifm-color-primary);
+  border-radius: 2px;
+}
+
+.platformCard {
+  padding: 2rem;
+  background: var(--ifm-background-color);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+  margin-bottom: 2rem;
+  border: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.platformCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  border-color: var(--ifm-color-primary);
+}
+
+.platformHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.platformIcon {
+  font-size: 2rem;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ifm-color-primary);
+  color: white;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
 .platformDescriptionHighlight {
   font-size: 1.5rem;
   font-weight: 600;
-  margin-bottom: 0.75rem;
+  margin: 0;
   color: var(--ifm-color-primary);
   line-height: 1.3;
+  flex: 1;
 }
 
 .platformDescription {
   font-size: 1.1rem;
-  margin-bottom: 2rem;
+  margin: 0;
   color: var(--ifm-color-emphasis-700);
   line-height: 1.6;
 }
@@ -100,5 +165,36 @@
   .sectionTitle {
     font-size: 1.75rem;
     margin-bottom: 1.5rem;
+  }
+
+  .platformSection {
+    padding: 2rem 0;
+  }
+
+  .platformSectionTitle {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .platformCard {
+    padding: 1.5rem;
+  }
+
+  .platformHeader {
+    gap: 0.75rem;
+  }
+
+  .platformIcon {
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+  }
+
+  .platformDescriptionHighlight {
+    font-size: 1.3rem;
+  }
+
+  .platformDescription {
+    font-size: 1rem;
   }
 }

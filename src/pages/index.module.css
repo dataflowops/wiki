@@ -11,6 +11,14 @@
   }
 }
 
+.sectionTitle {
+  margin-bottom: 2rem;
+  text-align: center;
+  font-weight: bold;
+  font-size: 2rem;
+  color: var(--ifm-color-primary);
+}
+
 .buttons {
   display: flex;
   align-items: center;
@@ -21,7 +29,6 @@
   padding: 4rem 0;
   text-align: center;
 }
-
 .platformDescription {
   font-size: 1.2rem;
   line-height: 1.6;
