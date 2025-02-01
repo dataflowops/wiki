@@ -2,28 +2,56 @@
   margin-bottom: 2rem;
   text-align: center;
   font-weight: bold;
+  font-size: 2rem;
+  color: var(--ifm-color-primary);
+}
+
+.contentGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin: 0 auto;
+  max-width: 1200px;
 }
 
 .contentEntry {
-  padding: 1.5rem;
-  background-color: var(--ifm-background-color);
-  border-radius: var(--ifm-border-radius);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  margin-bottom: 1rem;
+  padding: 1.25rem;
+  background-color: var(--ifm-background-surface-color);
+  border-radius: 8px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
 }
 
-.contentEntry:last-child {
-  margin-bottom: 0;
+.contentEntry::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background-color: var(--ifm-color-primary);
+  opacity: 0.6;
+}
+
+.contentEntry:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .contentEntry h3 {
   margin-bottom: 0.5rem;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.4;
 }
 
 .contentEntry h3 a {
   text-decoration: none;
-  color: inherit;
+  color: var(--ifm-color-emphasis-900);
 }
 
 .contentEntry h3 a:hover {
@@ -31,15 +59,46 @@
 }
 
 .changeType {
-  font-size: 0.8rem;
-  color: var(--ifm-color-emphasis-900);
+  font-size: 0.75rem;
+  color: var(--ifm-color-emphasis-600);
   font-style: italic;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .description {
-  margin-bottom: 0;
+  margin: 0;
   color: var(--ifm-color-emphasis-700);
   line-height: 1.5;
-  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  flex-grow: 1;
+}
+
+.platformDescriptionHighlight {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: var(--ifm-color-primary);
+  line-height: 1.3;
+}
+
+.platformDescription {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  color: var(--ifm-color-emphasis-700);
+  line-height: 1.6;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .contentGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .sectionTitle {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+  }
 }

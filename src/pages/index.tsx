@@ -83,6 +83,25 @@ const docItems = [
   }
 ];
 
+const platformSections = [
+  {
+    title: "Enterprise-Grade Workflow Automation",
+    description: "Transform your business processes with powerful automation that combines AI, APIs, and data integration into streamlined workflows. Reduce manual work and operational costs while improving accuracy and efficiency."
+  },
+  {
+    title: "Seamless Integration Framework",
+    description: "Connect your existing systems, AI models, databases, and third-party services without complex coding. Our platform handles the integration complexity, letting you focus on business logic."
+  },
+  {
+    title: "Flexible Deployment & Control",
+    description: "Deploy workflows your way - via REST API for system integration, web interface for business users, or automated scheduling. Maintain full control with comprehensive monitoring, logging, and analytics."
+  },
+  {
+    title: "Security & Compliance Ready",
+    description: "Built with enterprise security in mind, featuring role-based access control, audit logging, and secure data handling. Deploy on-premise or in your private cloud environment."
+  }
+];
+
 export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
   return (
@@ -94,44 +113,21 @@ export default function Home(): JSX.Element {
         <div className={styles.platformSection}>
           <div className="container">
             <div className="row">
-              <div className="col col--8 col--offset-2">
-                <p className={styles.platformDescriptionHighlight}>
-                  Build automated workflows.
-                </p>
-
-                <p className={styles.platformDescription}>
-                  Create workflows by chaining automated tasks with dynamic input and output configuration.
-                </p>
-
-                <p className={styles.platformDescriptionHighlight}>
-                  Connect anything with everything.
-                </p>
-
-                <p className={styles.platformDescription}>
-                  Integrate AI models, web APIs, databases, external services, various data sources, and data transformations into a single workflow.
-                </p>
-
-                <p className={styles.platformDescriptionHighlight}>
-                  Run workflows via API or web interface.
-                </p>
-
-                <p className={styles.platformDescription}>
-                  Execute workflows via API or Web UI, monitor execution performance, and get detailed logs and metrics.
-                </p>
-
-                <p className={styles.platformDescriptionHighlight}>
-                  Schedule automated processes.
-                </p>
-
-                <p className={styles.platformDescription}>
-                  Plan and schedule workflows to run at specific times, intervals or events (external triggers, webhooks, etc.), ensuring timely execution of automated processes.
-                </p>
-              </div>
+              {platformSections.map((section, index) => (
+                <div key={index} className="col col--6">
+                  <p className={styles.platformDescriptionHighlight}>
+                    {section.title}
+                  </p>
+                  <p className={styles.platformDescription}>
+                    {section.description}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
         <ContentSection
-          title="Latest Documentation Articles"
+          title="Latest Documentation Updates"
           className={styles.latestDocsSection}
           items={docItems}
         />

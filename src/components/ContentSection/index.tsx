@@ -26,23 +26,21 @@ export function ContentSection({ title, className, items }: ContentSectionProps)
   return (
     <div className={className}>
       <div className="container">
-        <div className="row">
-          <div className="col col--8 col--offset-2">
-            <Heading as="h2" className={styles.sectionTitle}>
-              {title}
-            </Heading>
-            {items.slice().reverse().map((item, index) => (
-              <div key={index} className={styles.contentEntry}>
-                <Heading as="h3">
-                  <Link to={item.link}>
-                    {item.title}
-                  </Link>
-                </Heading>
-                <p className={styles.changeType}>{item.changeType} on {item.changeDate}</p>
-                <p className={styles.description}>{item.description}</p>
-              </div>
-            ))}
-          </div>
+        <Heading as="h2" className={styles.sectionTitle}>
+          {title}
+        </Heading>
+        <div className={styles.contentGrid}>
+          {items.slice().reverse().map((item, index) => (
+            <div key={index} className={styles.contentEntry}>
+              <Heading as="h3">
+                <Link to={item.link}>
+                  {item.title}
+                </Link>
+              </Heading>
+              <p className={styles.changeType}>{item.changeType} on {item.changeDate}</p>
+              <p className={styles.description}>{item.description}</p>
+            </div>
+          ))}
         </div>
       </div>
     </div>
