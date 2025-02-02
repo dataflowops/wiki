@@ -53,18 +53,11 @@ const platformSections = [
 
 const docItems = [
   {
-    title: "Dummy Workflow Example",
-    link: "/docs/development",
-    changeType: ChangeType.Added,
-    changeDate: "December 20, 2024",
-    description: "Learn how to create a simple 3-step workflow that processes text input, including static text generation, text operations, and output handling."
-  },
-  {
     title: "Task Types",
     link: "/docs/task-types",
     changeType: ChangeType.Added,
     changeDate: "December 20, 2024",
-    description: "Learn how to use the Data Flow Platform's task types to create workflows."
+    description: "List of all currently available task types."
   },
   {
     title: "Workflows",
@@ -78,14 +71,14 @@ const docItems = [
     link: "/docs/tasks",
     changeType: ChangeType.Updated,
     changeDate: "January 16, 2025",
-    description: "Learn how tasks are defined and executed."
+    description: "Learn how to define and execute tasks."
   },
   {
     title: "New Web and Text Task Types",
     link: "/docs/task-types/web-download",
     changeType: ChangeType.Added,
     changeDate: "January 31, 2025",
-    description: "Learn how to use the new web and text task types to create workflows."
+    description: "New task types for downloading web pages and extracting text from them."
   }
 ];
 
