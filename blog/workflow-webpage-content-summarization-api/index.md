@@ -22,7 +22,7 @@ In this blog post, we will create an automated workflow to download and summariz
 
 ## Workflow
 
-The main execution unit of the DataFlow Platform is a workflow. A workflow is a sequence of tasks that are executed in order.
+The main execution unit of the DataFlow Platform is a [workflow](/docs/workflows). A workflow is a sequence of tasks that are executed in order.
 
 For this workflow, we need to have the following automation steps:
 
@@ -32,7 +32,7 @@ For this workflow, we need to have the following automation steps:
 4. Truncate and summarize the text based on given parameters
 5. Return the summary as a response
 
-Unit of work in DataFlow Platform is a task. A task is a single unit of work that can be executed in a workflow. With the task types, we can implement the automation steps.
+Unit of work in DataFlow Platform is a [task](/docs/tasks). A task is a single unit of work that can be executed in a workflow. With the task types, we can implement the automation steps.
 
 We need the following task types to implement this workflow:
 
