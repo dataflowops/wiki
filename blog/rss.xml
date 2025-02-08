@@ -123,6 +123,7 @@
 <p>For more examples and detailed documentation, visit our <a href="https://dataflow.wiki/docs">Documentation Portal</a>.</p>]]></content:encoded>
             <category>Workflows</category>
             <category>Data Integration</category>
+            <category>Data Flow</category>
             <category>Integrations</category>
             <category>API</category>
             <category>Automation</category>
@@ -232,6 +233,7 @@
 <p>For more examples and detailed documentation, visit our <a href="https://dataflow.wiki/docs">Documentation Portal</a>.</p>]]></content:encoded>
             <category>Workflows</category>
             <category>Data Integration</category>
+            <category>Data Flow</category>
             <category>Integrations</category>
             <category>API</category>
             <category>Automation</category>
@@ -304,6 +306,8 @@
 <p>For detailed documentation and examples, visit our <a href="https://dataflow.wiki/docs">Documentation Portal</a>.</p>]]></content:encoded>
             <category>Workflows</category>
             <category>AI Integration</category>
+            <category>Integration</category>
+            <category>API</category>
             <category>Data Flow</category>
             <category>ETL Processes</category>
             <category>App Integration</category>
@@ -311,6 +315,8 @@
             <category>AI Agents</category>
             <category>Integrations</category>
             <category>Use Cases</category>
+            <category>Web Tasks</category>
+            <category>Content Processing</category>
         </item>
         <item>
             <title><![CDATA[Get YouTube Video Transcription with an API call]]></title>
@@ -364,12 +370,14 @@
 <p>For detailed documentation and examples, visit our <a href="https://dataflow.wiki/docs">Documentation Portal</a>.</p>]]></content:encoded>
             <category>Workflows</category>
             <category>AI Integration</category>
+            <category>Integrations</category>
+            <category>Integration</category>
+            <category>API Integration</category>
             <category>Data Flow</category>
             <category>ETL Processes</category>
             <category>App Integration</category>
             <category>No-Code AI</category>
             <category>AI Agents</category>
-            <category>Integrations</category>
             <category>Use Cases</category>
         </item>
         <item>

@@ -126,6 +126,7 @@
         </author>
         <category label="Workflows" term="Workflows"/>
         <category label="Data Integration" term="Data Integration"/>
+        <category label="Data Flow" term="Data Flow"/>
         <category label="Integrations" term="Integrations"/>
         <category label="API" term="API"/>
         <category label="Automation" term="Automation"/>
@@ -239,6 +240,7 @@
         </author>
         <category label="Workflows" term="Workflows"/>
         <category label="Data Integration" term="Data Integration"/>
+        <category label="Data Flow" term="Data Flow"/>
         <category label="Integrations" term="Integrations"/>
         <category label="API" term="API"/>
         <category label="Automation" term="Automation"/>
@@ -315,6 +317,8 @@
         </author>
         <category label="Workflows" term="Workflows"/>
         <category label="AI Integration" term="AI Integration"/>
+        <category label="Integration" term="Integration"/>
+        <category label="API" term="API"/>
         <category label="Data Flow" term="Data Flow"/>
         <category label="ETL Processes" term="ETL Processes"/>
         <category label="App Integration" term="App Integration"/>
@@ -322,6 +326,8 @@
         <category label="AI Agents" term="AI Agents"/>
         <category label="Integrations" term="Integrations"/>
         <category label="Use Cases" term="Use Cases"/>
+        <category label="Web Tasks" term="Web Tasks"/>
+        <category label="Content Processing" term="Content Processing"/>
     </entry>
     <entry>
         <title type="html"><![CDATA[Get YouTube Video Transcription with an API call]]></title>
@@ -379,12 +385,14 @@
         </author>
         <category label="Workflows" term="Workflows"/>
         <category label="AI Integration" term="AI Integration"/>
+        <category label="Integrations" term="Integrations"/>
+        <category label="Integration" term="Integration"/>
+        <category label="API Integration" term="API Integration"/>
         <category label="Data Flow" term="Data Flow"/>
         <category label="ETL Processes" term="ETL Processes"/>
         <category label="App Integration" term="App Integration"/>
         <category label="No-Code AI" term="No-Code AI"/>
         <category label="AI Agents" term="AI Agents"/>
-        <category label="Integrations" term="Integrations"/>
         <category label="Use Cases" term="Use Cases"/>
     </entry>
     <entry>
