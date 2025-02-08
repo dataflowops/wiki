@@ -166,7 +166,7 @@ The Web Extract Text task works well with other task types:
 - AI processing tasks
 - Content transformation tasks
 
-For an example of combining tasks, see our [Webpage Content Summarization](/blog/workflow-webpage-content-summarization-api) tutorial.
+For an example of combining tasks, see our [Webpage Content Summarization](/blog/workflow-to-summarize-webpage-content-via-api) tutorial.
 
 ## Next Steps
 
