@@ -123,10 +123,12 @@
 <p>For more examples and detailed documentation, visit our <a href="https://dataflow.wiki/docs">Documentation Portal</a>.</p>]]></content:encoded>
             <category>Workflows</category>
             <category>Data Integration</category>
-            <category>text-extraction</category>
-            <category>content-processing</category>
+            <category>Integrations</category>
+            <category>API</category>
             <category>Automation</category>
             <category>Use Cases</category>
+            <category>Web Tasks</category>
+            <category>Content Processing</category>
         </item>
         <item>
             <title><![CDATA[Workflow Task to Download Webpage via API]]></title>
@@ -234,6 +236,8 @@
             <category>API</category>
             <category>Automation</category>
             <category>Use Cases</category>
+            <category>Web Tasks</category>
+            <category>Content Processing</category>
         </item>
         <item>
             <title><![CDATA[Summarize Webpage Content with an API call]]></title>

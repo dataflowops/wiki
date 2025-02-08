@@ -126,10 +126,12 @@
         </author>
         <category label="Workflows" term="Workflows"/>
         <category label="Data Integration" term="Data Integration"/>
-        <category label="text-extraction" term="text-extraction"/>
-        <category label="content-processing" term="content-processing"/>
+        <category label="Integrations" term="Integrations"/>
+        <category label="API" term="API"/>
         <category label="Automation" term="Automation"/>
         <category label="Use Cases" term="Use Cases"/>
+        <category label="Web Tasks" term="Web Tasks"/>
+        <category label="Content Processing" term="Content Processing"/>
     </entry>
     <entry>
         <title type="html"><![CDATA[Workflow Task to Download Webpage via API]]></title>
@@ -241,6 +243,8 @@
         <category label="API" term="API"/>
         <category label="Automation" term="Automation"/>
         <category label="Use Cases" term="Use Cases"/>
+        <category label="Web Tasks" term="Web Tasks"/>
+        <category label="Content Processing" term="Content Processing"/>
     </entry>
     <entry>
         <title type="html"><![CDATA[Summarize Webpage Content with an API call]]></title>
