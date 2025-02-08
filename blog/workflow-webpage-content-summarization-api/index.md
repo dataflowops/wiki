@@ -6,6 +6,8 @@ tags:
   [
     workflows,
     ai-integration,
+    integration,
+    api,
     data-flow,
     etl-processes,
     app-integration,
@@ -13,6 +15,8 @@ tags:
     ai-agents,
     integrations,
     use-cases,
+    web-tasks,
+    content-processing,
   ]
 ---
 
