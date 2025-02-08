@@ -84,19 +84,26 @@ const docItems = [
 
 const blogPosts = [
   {
-    title: "Building AI-Powered Workflows with Data Flow Platform",
-    link: "/blog/build-ai-workflows-with-data-flow-platform",
+    title: "Workflow Task to Download Webpage via API",
+    link: "/blog/workflow-task-to-download-webpage-via-api",
     changeType: ChangeType.Added,
-    changeDate: "December 18, 2024",
-    description: "Learn how to create automated workflows that combine AI models, application integrations, and ETL processes using the Data Flow Platform. This tutorial demonstrates how to build and deploy intelligent workflows as standalone AI agents accessible via API or web interface."
+    changeDate: "January 8, 2025",
+    description: "Learn how to use the Web Download task type to fetch webpage content programmatically through the DataFlow Platform's API."
   },
   {
-    title: "Get YouTube Video Transcription via API",
-    link: "/blog/workflow-to-download-and-transcribe-youtube-videos-via-api",
+    title: "Workflow Task to Extract Text from Webpage via API",
+    link: "/blog/workflow-task-to-extract-text-from-webpage-via-api",
     changeType: ChangeType.Added,
-    changeDate: "January 1, 2025",
-    description: "Learn how to create an automated workflow to download and transcribe YouTube videos via DataFlow Platform's API."
+    changeDate: "January 8, 2025",
+    description: "Learn how to use the Web Extract Text task type to extract text from a webpage via the DataFlow Platform's API."
   },
+  {
+    title: "Workflow to Summarize Webpage Content via API",
+    link: "/blog/workflow-to-summarize-webpage-content-via-api",
+    changeType: ChangeType.Added,
+    changeDate: "January 5, 2025",
+    description: "Learn how to create an automated workflow to summarize webpage content via the DataFlow Platform's API."
+  }
 ];
 
 export default function Home(): JSX.Element {
