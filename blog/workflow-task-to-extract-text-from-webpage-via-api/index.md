@@ -6,10 +6,12 @@ tags:
   [
     workflows,
     data-integration,
-    text-extraction,
-    content-processing,
+    integrations,
+    api,
     automation,
     use-cases,
+    web-tasks,
+    content-processing,
   ]
 ---
 

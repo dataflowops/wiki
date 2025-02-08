@@ -7,9 +7,11 @@ tags:
     workflows,
     data-integration,
     integrations,
-    api-integration,
+    api,
     automation,
     use-cases,
+    web-tasks,
+    content-processing,
   ]
 ---
 

@@ -19,7 +19,7 @@ integration:
   permalink: /integration
   description: Articles about connecting the platform with other tools
 
-# Workflows & Automation
+# Workflows, Tasks, and Automation
 workflows:
   label: Workflows
   permalink: /workflows
@@ -34,6 +34,16 @@ automation:
   label: Automation
   permalink: /automation
   description: Content about automating data processes
+
+web-tasks:
+  label: Web Tasks
+  permalink: /web-tasks
+  description: Articles about web tasks and how to use them in workflows
+
+content-processing:
+  label: Content Processing
+  permalink: /content-processing
+  description: Articles about processing and transforming content
 
 # Data Pipeline & ETL
 data-pipelines:
@@ -100,10 +110,15 @@ app-integration:
   description: Seamlessly connecting different applications to share data and automate tasks
 
 # APIs & Technical Integration
-api-integration:
+api:
   label: API
   permalink: /api
   description: Content related to API usage and integrations
+
+api-integration:
+  label: API Integration
+  permalink: /api-integration
+  description: Content about integrating with external APIs
 
 # Business & Use Cases
 business-intelligence:
