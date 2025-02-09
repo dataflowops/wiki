@@ -39,6 +39,12 @@ export function ContentSection({ title, className, items }: ContentSectionProps)
               </Heading>
               <p className={styles.changeType}>{item.changeType} on {item.changeDate}</p>
               <p className={styles.description}>{item.description}</p>
+              <Link
+                to={item.link}
+                className={styles.readMoreButton}
+              >
+                Read More
+              </Link>
             </div>
           ))}
         </div>
